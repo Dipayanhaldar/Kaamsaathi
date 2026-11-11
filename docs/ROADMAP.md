@@ -1,5 +1,11 @@
 # Roadmap
 
+## v0.1.4 — offline model self-check
+
+- Add a one-tap local generation check after model setup.
+- Show the exact model output and response time without saving the check in chat.
+- Report whether the model produced the expected short phrase, helping distinguish model output from normal chat handling.
+
 ## v0.1.3 — streaming chat
 
 - Show offline model text as it is generated instead of waiting for the complete reply.
@@ -24,4 +30,3 @@
 ## Later, separately funded
 
 Hosted website analysis and shared cloud features need hosting, abuse controls, privacy terms, and ongoing operating cost. They are outside the free offline v0.1.0 design. No cloud or paid API is enabled in this first release.
-

@@ -8,6 +8,7 @@ This Flutter app builds an Android arm64 APK and a portable Windows x64 folder. 
 2. Choose **Set up free offline AI** and download a model while online.
 3. When setup finishes, chat and local website-source checks work offline. The cached model is restored when you reopen the app.
 4. Chat replies appear as the local model generates them. Press **Stop** to end a long answer; any text already generated stays in the conversation.
+5. In model setup, use **Test offline AI** to check the loaded model and see its exact test reply and response time. The check runs locally and is not saved in chat.
 
 The 0.8B model file is about 533 MB. The 4B Q4 model file is about 2.74 GB and uses more memory. The AI runs on the user's device, so speed and answer quality vary by device; this is not equivalent to a large hosted model.
 
@@ -24,4 +25,3 @@ The GitHub Actions workflow generates temporary Android and Windows Flutter host
 - No screen monitoring, other-app control, live web access, or automatic source-file edits are implemented.
 
 The first APK uses the generated debug signing key; future releases signed with another key may require the user to uninstall first. The Windows ZIP is unsigned and may display a SmartScreen notice.
-
