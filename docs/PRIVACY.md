@@ -1,27 +1,19 @@
 # Privacy and permissions
 
-## What KaamSaathi does locally
+## Data flows
 
-- Serves its interface from a Python process bound to this computer (`127.0.0.1`).
-- Reads supported text files only after you select a folder.
-- Sends a chat message and the selected file context only to Ollama on this same computer.
-- Stores chat history, language choice, model choice, and activity in the current browser’s local storage.
-- Runs the basic website source audit locally, without an AI model.
-- Saves a draft only after you choose Save. It never overwrites the files it reads.
+- Chat runs locally inside the app using the model stored on the device.
+- The first model download is started by the user and connects to the selected Hugging Face model repository.
+- Selected text files are read only after the user opens the picker. Their text is supplied to the local model when the user sends a message.
+- Chat history, activity, and the preferred model are saved locally with app preferences.
+- Drafts are copied, saved, or shared only after the user taps that control.
 
-## Internet use
+There is no KaamSaathi account, cloud AI API, server, telemetry, screen capture, background scan, microphone, camera, or automatic app control in this release. Android's internet permission is used for the user-started model download. The Windows app makes no app-server requests except the model download.
 
-The app itself has no analytics or hosted AI endpoint. Internet is needed to get Python/Ollama and to download a model. The in-app model download requires your confirmation and is handled through the local Ollama runtime. After setup, the app’s chat and source review work offline. Ollama is separate software and has its own licence and behaviour.
+## Retention and deletion
 
-## Controls and limits
+Chat and activity remain on the device until the user clears them, clears app data, or uninstalls the app. Model files are stored in the app's model cache and can be removed by clearing the app's storage through Android/Windows. Clearing chat does not delete the downloaded model.
 
-- Stop the app by closing its command window or pressing Ctrl+C in that window.
-- Use **Clear history** to clear the app’s chat and activity from this browser.
-- Choose only folders you are comfortable giving to a local model. Do not select secrets such as passwords or API keys.
-- The app does not record the screen, keystrokes, or activity in other apps, and it does not run as a hidden background monitor.
-- The local model may produce incorrect answers. Review its output before using it.
+## Limits
 
-## Public-release review
-
-Before distributing an installer or APK, document the exact bundled components and licences, data storage, Android permissions, signing and update process, supported Windows versions, and the model download flow. Have the release checked for security, accessibility, applicable privacy requirements, and store rules.
-
+The app cannot guarantee a user's device has not been modified or compromised. Anyone with access to the unlocked device may be able to view locally saved data. Do not select documents containing passwords, private keys, or information you do not want included in a model prompt. Model answers can be inaccurate; review them before using or sharing.

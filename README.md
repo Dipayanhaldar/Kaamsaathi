@@ -1,60 +1,51 @@
 # KaamSaathi
 
-**A private, offline-first work companion for Windows.** It helps creators and small businesses review a website project, understand their files, plan work, and draft content in English or Hindi. The app works on your PC and does not use a paid AI API or hosted AI service.
+**A private, offline-first work companion for Android and Windows.** Use it to explain, plan, review, and draft from a small local AI model. The first version is designed for creators, students, and small businesses, with simple English and Hindi controls.
 
-## What this first version does
+## Download
 
-- Reviews basic website source details offline, even without an AI model.
-- Lets you ask a local AI model to explain, review, plan, and draft from up to 30 text files in a folder you select.
-- Lets you save an answer as a Markdown draft only after you ask it to save.
-- Includes English and Hindi interface labels, larger text, and a local activity list.
-- Does not watch your screen, record other apps, or edit project files on its own.
+Open [GitHub Releases](https://github.com/Dipayanhaldar/Kaamsaathi/releases/latest) and download:
 
-KaamSaathi is a focused work helper, not a general computer-control bot. It cannot operate every app or phone task in this version.
+- `KaamSaathi-Android-arm64.apk` for most recent 64-bit Android phones.
+- `KaamSaathi-Windows-x64.zip` for 64-bit Windows 10/11 PCs.
 
-## Start it on Windows
+On Windows, extract the whole ZIP folder and open `kaamsaathi.exe`. On Android, install the APK from your downloaded file; Android may ask you to allow installation from that source. This is a direct-download beta, not a Microsoft Store package.
 
-1. Install [Ollama for Windows](https://ollama.com/download/windows). Ollama runs the model on your own computer.
-2. Install [Python 3 for Windows](https://www.python.org/downloads/windows/) if Python is not already installed. Python is used only to run the local app server; this project needs no extra Python packages.
-3. Download this repository as a ZIP from GitHub and extract it to a folder.
-4. Double-click `Start-KaamSaathi.bat`. Keep the small command window open while using the app; close it or press Ctrl+C to stop KaamSaathi.
-5. In KaamSaathi, open **Local model** and download one of the offered models. This is a one-time download and needs internet. Choose the smaller option if your PC has limited memory.
-6. After the model finishes downloading, disconnect from the internet if you like. Website source checks and local model chats run on the computer.
+## First use and offline mode
 
-The app opens in your browser at a local address. You can use the browser’s install option to add it to the Windows desktop if the browser offers one. This repository does not yet contain a signed Windows installer or Microsoft Store package.
+The app contains its local inference engine. It does **not** require Python, Ollama, a cloud account, or an AI API. When you first open **Set up free offline AI**, choose a model and download it over the internet. After that finishes, chat and source review run on your device without internet. The app does not bundle model weights in the APK or Windows ZIP, so you choose when to use the storage and data for the model download.
 
-## How offline and free use works
+- **Qwen3.5 0.8B Q4:** about 533 MB; the lighter choice for phones and everyday tasks.
+- **Qwen3.5 4B Q4:** about 2.74 GB; requires substantially more memory and storage. The app recommends 8 GB RAM or more.
 
-- **No paid AI API or cloud account:** chats are sent only to Ollama running on `127.0.0.1` on your computer.
-- **One-time setup needs internet:** download Ollama and a model before using the AI features offline. The model is not included in this repository because it is large.
-- **Offline without AI:** the website source check works without Ollama or a downloaded model.
-- **No app telemetry:** KaamSaathi itself does not send prompts, project files, or usage analytics to a server. The only app-triggered internet transfer is the model download you start yourself through Ollama.
-- **No guaranteed zero cost for every user:** the code and local inference do not require a paid API, but the user supplies a compatible PC, electricity, storage, and internet for initial downloads. Model and Ollama licences/terms apply.
+The model is a small local model. It can be slow, miss details, or give wrong answers; it will not match the strongest hosted systems on every task. The 4B option needs more memory. Internet is required for the first model download; the app itself has no cloud AI endpoint.
 
-## Your project files and history
+## What it does
 
-Choose a folder to let KaamSaathi read supported text files such as HTML, CSS, JavaScript, Markdown, JSON, and Python. It reads at most 30 files and limits how much text it uses. Files are passed to the local model only when you send a chat request. The app does not crawl other folders. Chat history and activity stay in your browser’s local storage; **Clear history** removes them. Drafts are downloaded or written into `KaamSaathi-Drafts` only when you choose Save.
+- Chat to explain, plan, review, and draft in plain language.
+- Select text files for local project context. Only selected files are read; the app does not scan folders in the background.
+- Check an HTML page for a few common source issues, such as missing title, language, heading, image alt text, or mobile viewport.
+- Save, copy, or share a draft only when you choose to.
+- Use English or Hindi labels, larger text, and an on-device activity list.
 
-Do not select folders containing passwords, API keys, or private files you do not want included in a local model prompt.
+## What it does not do
 
-## Requirements and limits
+KaamSaathi does not monitor your screen, run in the background, control other apps, browse the live web, change your project files, or complete actions for you. It is an offline work assistant with selected-file context, not an autonomous computer-control agent. Website checks are basic source hints, not a security, accessibility, legal, or SEO audit.
 
-- Windows 10/11, Python 3, a supported browser, and Ollama for AI chat.
-- Local model speed and answer quality depend on your PC and the model you choose. A small local model will not match a large hosted model on every task.
-- Current model downloads are intentionally limited to the two choices shown in the app.
-- The website check reads source files; it does not visit a live site, test visual design, or provide a full security/accessibility audit.
-- There is no Android APK, Microsoft Store package, hosted website, shared multi-user service, or automatic control of your computer in this first release.
+## Privacy and cost
 
-## Project notes
+There is no account, cloud backend, telemetry, paid API, or in-app transaction. Chat and activity are stored on the device and can be cleared in the app. Selected files and prompts are processed locally by the model after setup. The one-time model download comes from Hugging Face. You still provide your own device, storage, electricity, and internet data for that download.
 
-- [Product scope](docs/PRODUCT.md)
-- [Architecture](docs/ARCHITECTURE.md)
-- [Privacy details](docs/PRIVACY.md)
-- [Roadmap and release plan](docs/ROADMAP.md)
+Read [Privacy](docs/PRIVACY.md), [Product scope](docs/PRODUCT.md), [Architecture](docs/ARCHITECTURE.md), and [Roadmap](docs/ROADMAP.md).
 
-The repository is private during personal development. Public APK and Microsoft Store distribution can be considered after a separate Android/Windows packaging and release review. Google Play is not in the current plan.
+## Build from source
 
-## Licence
+The GitHub Actions workflow builds the Android arm64 APK and portable Windows x64 ZIP and attaches them to a release. Consumers need no local C++ toolchain; the `llamadart` package build hook fetches the native runtime during the GitHub build. To build locally, use Flutter 3.38.6 or newer, Dart 3.10.7 or newer, and Java 17 for Android. See [`apps/kaamsaathi/README.md`](apps/kaamsaathi/README.md).
 
-This repository uses the MIT License. The local model runtime and model files are separate software and have their own licences and terms.
+## Licences
 
+This app source uses the MIT License. `llamadart` is MIT-licensed. Qwen3.5 model weights and the selected GGUF conversions are published under Apache 2.0; model files are downloaded directly from [Unsloth's 0.8B GGUF](https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF) or [4B GGUF](https://huggingface.co/unsloth/Qwen3.5-4B-GGUF) repositories. Those projects have their own notices and attribution requirements.
+
+## Early release notes
+
+The initial Android APK uses the generated debug signing key; future builds signed with a different key may require uninstalling the old copy first. The Windows ZIP is unsigned, so SmartScreen may show a warning. The first release supports Android arm64 and Windows x64 only. See the release notes for the exact build status.

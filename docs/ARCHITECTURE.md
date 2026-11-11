@@ -1,32 +1,27 @@
 # Architecture
 
-## Running product
+## Overview
 
 ```text
-Browser UI (served by this PC)
-   ├── local Python standard-library server on 127.0.0.1
-   │      ├── deterministic website source audit
-   │      └── local Ollama runtime on 127.0.0.1:11434
-   └── browser local storage for chat history and activity
+Flutter UI (Android / Windows)
+  ├─ Chat, model setup, selected-file review, activity and privacy screens
+  ├─ llamadart → embedded llama.cpp runtime → local GGUF model
+  └─ shared_preferences → chat/activity/model choice on the device
 
-Selected project folder ── text files read by the browser ── local chat request
+First model download: user action → Hugging Face → device model cache
 ```
 
-`Start-KaamSaathi.bat` starts the local server. The server chooses an available port in the 8765–8789 range and opens the browser. It binds only to loopback, adds browser security headers, rejects requests from other hosts/origins, and does not log request bodies or prompts.
+There is no KaamSaathi server, account, remote inference API, database, or analytics service. The Flutter project is in `apps/kaamsaathi`. GitHub Actions builds Android arm64 and Windows x64 deliverables. The consumer ZIP contains the full Windows release folder; do not distribute the executable alone.
 
-The browser sends local chat requests to this app server. The app server forwards them only to an installed local Ollama model. There is no remote AI endpoint, authentication key, database, or cloud backend. A model download is started only after the user presses a download button and confirms; that one-time transfer goes through Ollama to its model registry.
+## Inference and data
 
-## Offline behaviour
+`llamadart` uses `llama.cpp` to load Qwen3.5 GGUF weights in-process. The native runtime is resolved by the package build hook and bundled into platform builds. A user presses the setup button to download the selected model; only then does the app contact Hugging Face. Once the model is cached, chat needs no network.
 
-After Python, Ollama, and a model are installed/downloaded, the core website review and model chat can run without internet access. The service worker caches the static interface, but the local server must still be running for the app to work. The model is not included in GitHub because it is several gigabytes and has separate terms.
+Chat messages, activity, and the chosen model are saved locally through shared preferences. Text files are opened only after the user selects them. The file picker accepts at most 12 plain-text files, each up to 50 KB, and limits aggregate selected text. The app passes at most 8,000 selected-file characters into each model prompt. The HTML review works locally and does not require the model.
 
-## File access and writes
+## Release targets
 
-The browser asks the user to select one folder. It reads supported text files only, up to 30 files and 220,000 characters in total, and skips common dependency/build folders. The selected paths and contents are sent to the local model only when the user sends a chat message. The server validates file types and size again.
+- Android arm64 APK, generated with a temporary Flutter Android host, minimum Android API 28, internet permission for the user-started model download.
+- Windows x64 ZIP with Flutter runner, plugins, and native runtime assets. The native model runtime needs AVX2 on Windows x64. The 64-bit Windows build is not a Microsoft Store installer.
 
-Saving an answer is a separate user action. The browser asks for write permission at save time if it is able to write into the selected folder; otherwise it downloads the draft. No source file is overwritten.
-
-## Later integrations
-
-Android, a Windows installer, a store package, remote access, and website plug-ins are not part of this build. A future integration should send only the selected task context and make any changes or network transfer visible to the user. A cloud service should remain off by default and cannot be promised free at scale.
-
+The app source uses no shell or Python at runtime. GitHub Actions uses Flutter and Java only as build tools. Review the workflow and package dependency licenses before changing the release pipeline.
