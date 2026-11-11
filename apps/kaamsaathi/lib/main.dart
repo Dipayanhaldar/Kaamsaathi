@@ -155,6 +155,10 @@ class WorkController extends ChangeNotifier {
   String? modelError;
   bool modelBusy = false;
   bool chatBusy = false;
+  bool chatStopping = false;
+  String? chatInfo;
+  bool _chatCancelRequested = false;
+  int _chatGenerationId = 0;
 
   bool get isHindi => language == 'hi';
   ModelChoice get modelChoice => _models[selectedModel]!;
@@ -291,6 +295,25 @@ class WorkController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void stopGeneration() {
+    if (!chatBusy || chatStopping) return;
+    chatStopping = true;
+    _chatCancelRequested = true;
+    chatInfo = tr('Stopping the reply…', 'जवाब रोका जा रहा है…');
+    engine?.cancelGeneration();
+    notifyListeners();
+  }
+
+  void _updateAssistantReply(DateTime time, String text, int generationId) {
+    if (generationId != _chatGenerationId) return;
+    final index = messages.lastIndexWhere(
+      (line) => line.role == 'assistant' && line.time == time,
+    );
+    if (index < 0) return;
+    messages[index] = ChatLine('assistant', text, time);
+    notifyListeners();
+  }
+
   Future<void> ask(String prompt) async {
     final clean = prompt.trim();
     if (clean.isEmpty || chatBusy) return;
@@ -306,11 +329,26 @@ class WorkController extends ChangeNotifier {
       notifyListeners();
       return;
     }
+    final generationId = ++_chatGenerationId;
     chatBusy = true;
+    chatStopping = false;
+    _chatCancelRequested = false;
+    chatInfo = null;
     modelError = null;
     final previous = messages.where((line) => line.role == 'user' || line.role == 'assistant').toList();
     messages.add(ChatLine('user', clean, DateTime.now()));
     await _saveMessages();
+    if (generationId != _chatGenerationId) {
+      chatBusy = false;
+      chatStopping = false;
+      _chatCancelRequested = false;
+      chatInfo = null;
+      await _saveMessages();
+      notifyListeners();
+      return;
+    }
+    final replyTime = DateTime.now();
+    messages.add(ChatLine('assistant', '', replyTime));
     notifyListeners();
     final contextBuffer = StringBuffer();
     var remainingContext = _maxProjectContextChars;
@@ -345,37 +383,83 @@ class WorkController extends ChangeNotifier {
       ...history,
       LlamaChatMessage.fromText(role: LlamaChatRole.user, text: '$clean$context'),
     ];
+    var answer = '';
     try {
-      final answer = await engine!
+      await for (final chunk in engine!
           .create(
-              messagesForModel,
-              params: const GenerationParams(
-                maxTokens: 256,
-                temp: 1.0,
-                topP: 1.0,
-                topK: 20,
-                presencePenalty: 2.0,
-              ),
-              enableThinking: false,
-            )
-          .text();
-      messages.add(ChatLine('assistant', answer.trim(), DateTime.now()));
-      _record(tr('Completed a local AI task', 'लोकल AI काम पूरा हुआ'));
+            messagesForModel,
+            params: const GenerationParams(
+              maxTokens: 256,
+              temp: 1.0,
+              topP: 1.0,
+              topK: 20,
+              presencePenalty: 2.0,
+            ),
+            enableThinking: false,
+          )) {
+        if (chunk.text.isEmpty) continue;
+        answer += chunk.text;
+        _updateAssistantReply(replyTime, answer, generationId);
+      }
+      if (generationId == _chatGenerationId) {
+        if (_chatCancelRequested) {
+          _updateAssistantReply(
+            replyTime,
+            answer.trim().isEmpty
+                ? tr('Stopped before a reply was ready.', 'जवाब आने से पहले रोक दिया गया।')
+                : answer.trimRight(),
+            generationId,
+          );
+          chatInfo = tr('Reply stopped. Any text already generated was kept.',
+              'जवाब रोक दिया गया। अब तक बना टेक्स्ट रखा गया है।');
+        } else if (answer.trim().isEmpty) {
+          _updateAssistantReply(
+            replyTime,
+            tr('No reply came back. Try a shorter question or restart the local model.',
+                'जवाब नहीं आया। छोटा सवाल पूछें या लोकल मॉडल फिर शुरू करें।'),
+            generationId,
+          );
+        } else {
+          _updateAssistantReply(replyTime, answer.trim(), generationId);
+          _record(tr('Completed a local AI task', 'लोकल AI काम पूरा हुआ'));
+        }
+      }
     } catch (_) {
-      messages.add(ChatLine(
-        'assistant',
-        tr('I could not finish that answer. Try a shorter request or restart the local model.',
-            'जवाब पूरा नहीं हो पाया। छोटा सवाल पूछें या लोकल मॉडल फिर शुरू करें।'),
-        DateTime.now(),
-      ));
+      if (generationId == _chatGenerationId) {
+        if (_chatCancelRequested) {
+          _updateAssistantReply(
+            replyTime,
+            answer.trim().isEmpty
+                ? tr('Stopped before a reply was ready.', 'जवाब आने से पहले रोक दिया गया।')
+                : answer.trimRight(),
+            generationId,
+          );
+          chatInfo = tr('Reply stopped. Any text already generated was kept.',
+              'जवाब रोक दिया गया। अब तक बना टेक्स्ट रखा गया है।');
+        } else {
+          _updateAssistantReply(
+            replyTime,
+            tr('I could not finish that answer. Try a shorter request or restart the local model.',
+                'जवाब पूरा नहीं हो पाया। छोटा सवाल पूछें या लोकल मॉडल फिर शुरू करें।'),
+            generationId,
+          );
+        }
+      }
     } finally {
       chatBusy = false;
+      chatStopping = false;
+      _chatCancelRequested = false;
       await _saveMessages();
       notifyListeners();
     }
   }
 
   Future<void> clearHistory() async {
+    if (chatBusy) {
+      _chatGenerationId++;
+      stopGeneration();
+    }
+    chatInfo = null;
     messages.clear();
     activity.clear();
     await prefs.remove('chat');
@@ -601,50 +685,81 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
+  void _followStreamingReply() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scroll.hasClients) return;
+      final position = _scroll.position;
+      if (position.maxScrollExtent - position.pixels < 180) {
+        _scroll.jumpTo(position.maxScrollExtent);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final c = widget.controller;
     final wide = MediaQuery.sizeOf(context).width >= 900;
     return AnimatedBuilder(
       animation: c,
-      builder: (context, _) => Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 980),
-          child: Column(children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(wide ? 28 : 16, 10, wide ? 28 : 16, 12),
-              child: _ModelStatus(controller: c, onTap: widget.onOpenModels),
-            ),
-            if (c.modelError != null)
+      builder: (context, _) {
+        if (c.chatBusy) _followStreamingReply();
+        return Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 980),
+            child: Column(children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(wide ? 28 : 16, 0, wide ? 28 : 16, 10),
-                child: _Notice(text: c.modelError!, icon: Icons.info_outline),
+                padding: EdgeInsets.fromLTRB(wide ? 28 : 16, 10, wide ? 28 : 16, 12),
+                child: _ModelStatus(controller: c, onTap: widget.onOpenModels),
               ),
-            Expanded(
-              child: c.messages.isEmpty
-                  ? _Welcome(controller: c, onPrompt: _send, onOpenModels: widget.onOpenModels)
-                  : ListView.builder(
-                      controller: _scroll,
-                      padding: EdgeInsets.symmetric(horizontal: wide ? 36 : 16, vertical: 18),
-                      itemCount: c.messages.length + (c.chatBusy ? 1 : 0),
-                      itemBuilder: (context, index) {
-                        if (index == c.messages.length) return _Thinking(controller: c);
-                        return _MessageBubble(line: c.messages[index], controller: c);
-                      },
-                    ),
-            ),
-            if (c.projectFiles.isNotEmpty)
+              if (c.modelError != null)
+                Padding(
+                  padding: EdgeInsets.fromLTRB(wide ? 28 : 16, 0, wide ? 28 : 16, 10),
+                  child: _Notice(text: c.modelError!, icon: Icons.info_outline),
+                ),
+              if (c.chatInfo != null)
+                Padding(
+                  padding: EdgeInsets.fromLTRB(wide ? 28 : 16, 0, wide ? 28 : 16, 10),
+                  child: _Notice(text: c.chatInfo!, icon: Icons.info_outline),
+                ),
+              Expanded(
+                child: c.messages.isEmpty
+                    ? _Welcome(controller: c, onPrompt: _send, onOpenModels: widget.onOpenModels)
+                    : ListView.builder(
+                        controller: _scroll,
+                        padding: EdgeInsets.symmetric(horizontal: wide ? 36 : 16, vertical: 18),
+                        itemCount: c.messages.length,
+                        itemBuilder: (context, index) {
+                          final line = c.messages[index];
+                          final streaming = c.chatBusy &&
+                              index == c.messages.length - 1 &&
+                              line.role == 'assistant';
+                          return _MessageBubble(
+                            line: line,
+                            controller: c,
+                            isStreaming: streaming,
+                          );
+                        },
+                      ),
+              ),
+              if (c.projectFiles.isNotEmpty)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: wide ? 36 : 16),
+                  child: _SelectedFiles(controller: c),
+                ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: wide ? 36 : 16),
-                child: _SelectedFiles(controller: c),
+                padding: EdgeInsets.fromLTRB(wide ? 36 : 16, 8, wide ? 36 : 16, 12),
+                child: _Composer(
+                  controller: c,
+                  input: _input,
+                  onSend: _send,
+                  onStop: c.stopGeneration,
+                  onChooseFiles: c.pickProjectFiles,
+                ),
               ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(wide ? 36 : 16, 8, wide ? 36 : 16, 12),
-              child: _Composer(controller: c, input: _input, onSend: _send, onChooseFiles: c.pickProjectFiles),
-            ),
-          ]),
-        ),
-      ),
+            ]),
+          ),
+        );
+      },
     );
   }
 }
@@ -710,10 +825,11 @@ class _Welcome extends StatelessWidget {
 }
 
 class _Composer extends StatelessWidget {
-  const _Composer({required this.controller, required this.input, required this.onSend, required this.onChooseFiles});
+  const _Composer({required this.controller, required this.input, required this.onSend, required this.onStop, required this.onChooseFiles});
   final WorkController controller;
   final TextEditingController input;
   final ValueChanged<String> onSend;
+  final VoidCallback onStop;
   final VoidCallback onChooseFiles;
 
   @override
@@ -748,12 +864,25 @@ class _Composer extends StatelessWidget {
             ),
             Expanded(child: Text(c.tr('Runs on this device · No AI API', 'इसी डिवाइस पर चलता है · कोई AI API नहीं'),
                 style: const TextStyle(fontSize: 11, color: Color(0xFF718078)))),
-            FilledButton.icon(
-              onPressed: c.chatBusy ? null : () => onSend(input.text),
-              icon: const Icon(Icons.arrow_upward, size: 18),
-              label: Text(c.tr('Ask', 'पूछें')),
-              style: FilledButton.styleFrom(backgroundColor: _leaf),
-            ),
+            if (c.chatBusy)
+              FilledButton.icon(
+                onPressed: c.chatStopping ? null : onStop,
+                icon: const Icon(Icons.stop_rounded, size: 18),
+                label: Text(c.chatStopping
+                    ? c.tr('Stopping…', 'रोक रहा है…')
+                    : c.tr('Stop', 'रोकें')),
+                style: FilledButton.styleFrom(
+                  backgroundColor: const Color(0xFFAF594A),
+                  foregroundColor: Colors.white,
+                ),
+              )
+            else
+              FilledButton.icon(
+                onPressed: () => onSend(input.text),
+                icon: const Icon(Icons.arrow_upward, size: 18),
+                label: Text(c.tr('Ask', 'पूछें')),
+                style: FilledButton.styleFrom(backgroundColor: _leaf),
+              ),
           ]),
         ]),
       ),
@@ -893,9 +1022,10 @@ class _ModelTile extends StatelessWidget {
 }
 
 class _MessageBubble extends StatelessWidget {
-  const _MessageBubble({required this.line, required this.controller});
+  const _MessageBubble({required this.line, required this.controller, this.isStreaming = false});
   final ChatLine line;
   final WorkController controller;
+  final bool isStreaming;
 
   @override
   Widget build(BuildContext context) {
@@ -910,8 +1040,24 @@ class _MessageBubble extends StatelessWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(user ? controller.tr('You', 'आप') : 'KaamSaathi', style: const TextStyle(color: _leaf, fontWeight: FontWeight.w800, fontSize: 12)),
           const SizedBox(height: 7),
-          SelectableText(line.text, style: const TextStyle(height: 1.5, color: _ink)),
-          if (!user) ...[
+          if (isStreaming && line.text.isEmpty)
+            _Thinking(controller: controller)
+          else
+            SelectableText(line.text, style: const TextStyle(height: 1.5, color: _ink)),
+          if (isStreaming && line.text.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Row(mainAxisSize: MainAxisSize.min, children: [
+              const SizedBox(
+                width: 13,
+                height: 13,
+                child: CircularProgressIndicator(strokeWidth: 2, color: _leaf),
+              ),
+              const SizedBox(width: 7),
+              Text(controller.tr('Writing…', 'लिख रहा है…'),
+                  style: const TextStyle(fontSize: 11, color: Color(0xFF718078))),
+            ]),
+          ],
+          if (!user && !isStreaming) ...[
             const SizedBox(height: 9),
             Align(
               alignment: Alignment.centerRight,
@@ -1119,3 +1265,4 @@ class _Notice extends StatelessWidget {
         child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [Icon(icon, size: 19, color: _leaf), const SizedBox(width: 9), Expanded(child: Text(text, style: const TextStyle(height: 1.4, color: _ink, fontSize: 12)))]),
       );
 }
+

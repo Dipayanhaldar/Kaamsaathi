@@ -25,6 +25,7 @@ The model is a small local model. It can be slow, miss details, or give wrong an
 ## What it does
 
 - Chat to explain, plan, review, and draft in plain language.
+- See local AI replies appear as they are generated; stop a long answer and keep its partial text.
 - Select text files for local project context. Only selected files are read; the app does not scan folders in the background.
 - Check an HTML page for a few common source issues, such as missing title, language, heading, image alt text, or mobile viewport.
 - Save, copy, or share a draft only when you choose to.
@@ -51,3 +52,4 @@ This app source uses the MIT License. `llamadart` is MIT-licensed. Qwen3.5 model
 ## Early release notes
 
 The initial Android APK uses the generated debug signing key; future builds signed with a different key may require uninstalling the old copy first. The Windows ZIP is unsigned, so SmartScreen may show a warning. The first release supports Android arm64 and Windows x64 only. See the release notes for the exact build status.
+

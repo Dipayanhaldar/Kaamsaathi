@@ -6,7 +6,7 @@ on:
       release_tag:
         description: Release version label
         required: true
-        default: v0.1.0
+        default: v0.1.3
         type: string
   push:
     tags:
@@ -131,4 +131,5 @@ jobs:
           if [ -z "$tag" ]; then tag="$REF_NAME"; fi
           gh release create "$tag" release-assets/* --repo "$REPOSITORY" --target "$SHA" \
             --title "KaamSaathi $tag" \
-            --notes "First offline app build. Android arm64 APK and portable Windows x64 ZIP are attached. The app bundles its local inference runtime; download the model once in the app, then it can work offline."
+            --notes "KaamSaathi v0.1.3 adds live offline replies: text appears as the local model generates it, and Stop cancels generation while keeping any partial answer. Empty model output now gets a clear retry message. Android arm64 APK and portable Windows x64 ZIP are attached. The app bundles its local inference runtime; download the model once in the app, then it can work offline."
+

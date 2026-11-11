@@ -1,5 +1,11 @@
 # Roadmap
 
+## v0.1.3 — streaming chat
+
+- Show offline model text as it is generated instead of waiting for the complete reply.
+- Add a Stop control that cancels generation and preserves any partial answer.
+- Show a clear retry hint when generation finishes without reply text.
+
 ## v0.1.0 — offline beta
 
 - Android arm64 APK and portable Windows x64 ZIP from GitHub Actions.
@@ -18,3 +24,4 @@
 ## Later, separately funded
 
 Hosted website analysis and shared cloud features need hosting, abuse controls, privacy terms, and ongoing operating cost. They are outside the free offline v0.1.0 design. No cloud or paid API is enabled in this first release.
+
