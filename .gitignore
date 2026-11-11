@@ -1,0 +1,8 @@
+# Flutter/Dart build output
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+coverage/
+apps/kaamsaathi/build_host/
+apps/kaamsaathi/dist/

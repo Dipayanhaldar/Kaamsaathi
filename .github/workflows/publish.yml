@@ -1,0 +1,134 @@
+name: Build and publish offline apps
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Release version label
+        required: true
+        default: v0.1.0
+        type: string
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+      - name: Generate Android build host
+        working-directory: apps/kaamsaathi
+        run: |
+          flutter create --platforms=android --project-name=kaamsaathi --org=in.dipayan build_host
+          cp pubspec.yaml build_host/pubspec.yaml
+          mkdir -p build_host/lib
+          cp -R lib/. build_host/lib/
+          sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 28/' build_host/android/app/build.gradle.kts
+          sed -i 's/android:label="kaamsaathi"/android:label="KaamSaathi"/; s/android:allowBackup="true"/android:allowBackup="false"/' build_host/android/app/src/main/AndroidManifest.xml
+          sed -i '/<application/i\    <uses-permission android:name="android.permission.INTERNET" />' build_host/android/app/src/main/AndroidManifest.xml
+      - name: Build installable arm64 APK
+        working-directory: apps/kaamsaathi/build_host
+        run: |
+          flutter pub get
+          flutter build apk --release --target-platform android-arm64
+          mkdir -p ../dist
+          cp build/app/outputs/flutter-apk/app-release.apk ../dist/KaamSaathi-Android-arm64.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kaamsaathi-android
+          path: apps/kaamsaathi/dist/KaamSaathi-Android-arm64.apk
+          if-no-files-found: error
+
+  windows:
+    name: Build portable Windows app
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+      - name: Generate Windows build host
+        working-directory: apps/kaamsaathi
+        shell: pwsh
+        run: |
+          flutter create --platforms=windows --project-name=kaamsaathi --org=in.kaamsaathi build_host
+          Copy-Item pubspec.yaml build_host\pubspec.yaml -Force
+          Copy-Item lib\* build_host\lib\ -Recurse -Force
+      - name: Build portable Windows app
+        working-directory: apps/kaamsaathi/build_host
+        shell: pwsh
+        run: |
+          flutter pub get
+          flutter build windows --release
+          $release = Join-Path (Get-Location) 'build\windows\x64\runner\Release'
+          $stage = Join-Path (Get-Location) 'dist\KaamSaathi-Windows-x64'
+          New-Item -ItemType Directory -Force -Path $stage | Out-Null
+          Copy-Item (Join-Path $release '*') $stage -Recurse -Force
+          Set-Content -LiteralPath (Join-Path $stage 'READ-ME-FIRST.txt') -Encoding utf8 -Value @'
+          KAAMSAATHI FOR WINDOWS
+
+          1. Extract this whole folder.
+          2. Double-click kaamsaathi.exe.
+          3. In KaamSaathi, choose Set up local AI and download a model once.
+          4. After the model is ready, chat works offline.
+
+          No Python or Ollama installation is needed. The model download needs internet once.
+          Keep all files in this folder together. This is an unsigned early release.
+          '@
+          $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+          if (Test-Path $vswhere) {
+            $vsPath = & $vswhere -latest -products '*' -property installationPath
+            $crtRoot = Join-Path $vsPath 'VC\Redist\MSVC'
+            $crt = Get-ChildItem -Path $crtRoot -Filter 'Microsoft.VC143.CRT' -Directory -Recurse -ErrorAction SilentlyContinue |
+              Where-Object { $_.Parent.Name -eq 'x64' } | Sort-Object FullName | Select-Object -Last 1
+            if ($crt) { Copy-Item (Join-Path $crt.FullName '*') $stage -Force }
+          }
+          Compress-Archive -Path (Join-Path $stage '*') -DestinationPath (Join-Path (Get-Location) 'dist\KaamSaathi-Windows-x64.zip') -Force
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kaamsaathi-windows
+          path: apps/kaamsaathi/build_host/dist/KaamSaathi-Windows-x64.zip
+          if-no-files-found: error
+
+  release:
+    name: Attach apps to GitHub Release
+    runs-on: ubuntu-latest
+    needs: [android, windows]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: kaamsaathi-android
+          path: release-assets
+      - uses: actions/download-artifact@v4
+        with:
+          name: kaamsaathi-windows
+          path: release-assets
+      - name: Publish public GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DISPATCH_TAG: ${{ inputs.release_tag }}
+          REF_NAME: ${{ github.ref_name }}
+          SHA: ${{ github.sha }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          tag="$DISPATCH_TAG"
+          if [ -z "$tag" ]; then tag="$REF_NAME"; fi
+          gh release create "$tag" release-assets/* --repo "$REPOSITORY" --target "$SHA" \
+            --title "KaamSaathi $tag" \
+            --notes "First offline app build. Android arm64 APK and portable Windows x64 ZIP are attached. The app bundles its local inference runtime; download the model once in the app, then it can work offline."

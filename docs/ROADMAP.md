@@ -1,30 +1,20 @@
 # Roadmap
 
-## Personal Windows release in this repository
+## v0.1.0 — offline beta
 
-- [x] English/Hindi interface labels and larger-text setting.
-- [x] Local project folder selection with bounded text-file reading.
-- [x] Basic deterministic website source review that runs without AI.
-- [x] Local Ollama model discovery and user-started download of two recommended models.
-- [x] Local chat for explanations, reviews, plans, and drafts.
-- [x] Save drafts only after a user action; local activity and clear-history control.
-- [x] Windows double-click launcher and offline app-shell cache.
-- [ ] Package as a signed Windows installer and prepare Microsoft Store submission.
-- [ ] Test on supported Windows PCs and review Hindi translations/accessibility with users.
+- Android arm64 APK and portable Windows x64 ZIP from GitHub Actions.
+- Embedded local inference runtime with optional 0.8B and 4B Q4 models.
+- English/Hindi interface labels, larger text, local history, explicit save/share, and basic selected-HTML source checks.
+- Document privacy, supported systems, model download size, and limitations.
 
-## Later work
+## Next, based on user feedback
 
-1. Improve first-run setup and provide model sizing guidance based on the user’s PC.
-2. Add safe draft previews and restore for explicitly approved file edits.
-3. Add speech only after selecting and testing an offline speech engine.
-4. Build a user-paired Android companion; keep device-wide monitoring out of scope.
-5. Publish a documented connector for websites/projects the user owns.
-6. Consider Azure/AWS only for opt-in features that truly need shared remote state, with budgets and a shutdown path.
+- Obtain and keep a stable Android signing key; verify upgrades install over prior releases.
+- Verify the Windows package on a clean Windows machine and add a signed MSIX/Store path if requested.
+- Add accessibility checks with a broader standards-aware report and sample project packs.
+- Add safer, user-confirmed local project actions only after a threat model and recovery/undo design.
+- Consider an opt-in project integration protocol after documenting its permissions, data flow, and compatibility contract.
 
-## Distribution decisions
+## Later, separately funded
 
-- Google Play is not planned.
-- The current repository is the source code, not a released installer or APK.
-- Microsoft Store and direct APK distribution require separate packaging, signing, device testing, privacy review, and release assets.
-- GitHub Releases/site downloads can be considered for the Android build after that work is complete. Uptodown or PhonePe can be reconsidered at release time.
-
+Hosted website analysis and shared cloud features need hosting, abuse controls, privacy terms, and ongoing operating cost. They are outside the free offline v0.1.0 design. No cloud or paid API is enabled in this first release.
