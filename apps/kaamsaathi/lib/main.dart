@@ -131,8 +131,14 @@ class WorkController extends ChangeNotifier {
     } catch (_) {}
   }
 
-  static Future<WorkController> create() async =>
-      WorkController._(await SharedPreferences.getInstance());
+  static Future<WorkController> create() async {
+    final controller =
+        WorkController._(await SharedPreferences.getInstance());
+    if (controller.prefs.getString('model') != null) {
+      unawaited(controller.prepareModel(controller.selectedModel, cacheOnly: true));
+    }
+    return controller;
+  }
 
   final SharedPreferences prefs;
   final List<ChatLine> messages = [];
@@ -175,13 +181,15 @@ class WorkController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> prepareModel(String id) async {
+  Future<void> prepareModel(String id, {bool cacheOnly = false}) async {
     final choice = _models[id];
     if (choice == null || modelBusy) return;
     modelBusy = true;
     modelError = null;
     downloadProgress = null;
-    downloadStatus = tr('Preparing the local model…', 'लोकल मॉडल तैयार हो रहा है…');
+    downloadStatus = cacheOnly
+        ? tr('Loading saved offline AI…', 'सेव किया हुआ ऑफलाइन AI लोड हो रहा है…')
+        : tr('Preparing the local model…', 'लोकल मॉडल तैयार हो रहा है…');
     notifyListeners();
     try {
       await engine?.dispose();
@@ -191,7 +199,12 @@ class WorkController extends ChangeNotifier {
       final loaded = await LlamaEngine.load(
         LlamaModel(ModelSource.parse(choice.source)),
         params: const ModelParams(contextSize: 4096, gpuLayers: 0),
-        download: ModelLoadOptions(cancelToken: _downloadToken),
+        download: ModelLoadOptions(
+          cancelToken: _downloadToken,
+          cachePolicy: cacheOnly
+              ? ModelCachePolicy.cacheOnly
+              : ModelCachePolicy.preferCached,
+        ),
         onProgress: (progress) {
           downloadProgress = progress.fraction;
           downloadStatus = progress.fraction == null
@@ -209,7 +222,12 @@ class WorkController extends ChangeNotifier {
     } catch (error) {
       engine = null;
       loadedModelId = null;
-      modelError = _friendlyModelError(error);
+      modelError = cacheOnly
+          ? tr(
+              'The saved model could not be loaded. Connect to the internet and choose Set up to prepare it again.',
+              'सेव किया हुआ मॉडल लोड नहीं हुआ। इंटरनेट से जुड़ें और फिर सेट अप करें।',
+            )
+          : _friendlyModelError(error);
       downloadStatus = '';
     } finally {
       modelBusy = false;
@@ -758,7 +776,12 @@ class _ModelStatus extends StatelessWidget {
         child: Row(children: [
           Icon(c.modelReady ? Icons.check_circle_outline : Icons.downloading_outlined, size: 19, color: c.modelReady ? _leaf : const Color(0xFF8B6923)),
           const SizedBox(width: 9),
-          Expanded(child: Text(c.modelReady ? c.tr('Offline AI ready · ${c.modelChoice.name}', 'ऑफलाइन AI तैयार · ${c.modelChoice.name}') : c.tr('One-time model setup · then works offline', 'एक बार मॉडल सेटअप · फिर ऑफलाइन चलता है'),
+          Expanded(child: Text(
+              c.modelBusy
+                  ? c.downloadStatus
+                  : c.modelReady
+                      ? c.tr('Offline AI ready · ${c.modelChoice.name}', 'ऑफलाइन AI तैयार · ${c.modelChoice.name}')
+                      : c.tr('One-time model setup · then works offline', 'एक बार मॉडल सेटअप · फिर ऑफलाइन चलता है'),
               style: const TextStyle(fontSize: 12, color: _ink, fontWeight: FontWeight.w700), overflow: TextOverflow.ellipsis)),
           Text(c.tr('Set up', 'सेट करें'), style: const TextStyle(fontSize: 12, color: _leaf, fontWeight: FontWeight.w800)),
         ]),
