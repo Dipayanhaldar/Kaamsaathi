@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3eb" />
+    <meta name="description" content="A local-first work companion for creators and freelancers." />
+    <title>KaamSaathi — your work, with a little more help</title>
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#home" aria-label="KaamSaathi home">
+          <span class="brand-mark" aria-hidden="true">क</span>
+          <span><strong>kaam</strong><span class="brand-light">saathi</span><small>YOUR WORK COMPANION</small></span>
+        </a>
+        <div class="workspace-label" data-en="YOUR SPACE" data-hi="आपकी जगह">YOUR SPACE</div>
+        <nav class="nav-list">
+          <a class="nav-item active" href="#home"><span class="nav-icon">⌂</span><span data-en="Today" data-hi="आज">Today</span></a>
+          <a class="nav-item" href="#projects"><span class="nav-icon">▦</span><span data-en="My projects" data-hi="मेरे प्रोजेक्ट">My projects</span><span id="project-count" class="nav-count">1</span></a>
+          <a class="nav-item" href="#activity"><span class="nav-icon">◷</span><span data-en="Activity" data-hi="गतिविधि">Activity</span></a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="local-card"><span class="local-dot"></span><div><strong data-en="On this device" data-hi="इस डिवाइस पर">On this device</strong><p data-en="Your demo data stays in this browser." data-hi="आपका डेमो डेटा इसी ब्राउज़र में रहता है।">Your demo data stays in this browser.</p></div></div>
+          <button class="sidebar-link" id="privacy-button"><span>◈</span><span data-en="Privacy & permissions" data-hi="गोपनीयता और अनुमतियाँ">Privacy & permissions</span></button>
+          <div class="profile"><div class="avatar">D</div><div><strong>Dipayan</strong><small data-en="Personal workspace" data-hi="निजी वर्कस्पेस">Personal workspace</small></div><span class="profile-menu">•••</span></div>
+        </div>
+      </aside>
+
+      <main id="home" class="main-content">
+        <header class="topbar">
+          <div class="crumb"><span data-en="My workspace" data-hi="मेरा वर्कस्पेस">My workspace</span><span class="slash">/</span><strong data-en="Today" data-hi="आज">Today</strong></div>
+          <div class="top-actions">
+            <span class="demo-pill"><span class="demo-dot"></span><span data-en="DEMO MODE · NO AI CONNECTED" data-hi="डेमो मोड · AI जुड़ा नहीं है">DEMO MODE · NO AI CONNECTED</span></span>
+            <button id="language-toggle" class="icon-button" aria-label="Change language" title="Change language">हिं / EN</button>
+            <button id="text-size-toggle" class="icon-button text-size" aria-label="Increase text size" title="Increase text size">A+</button>
+          </div>
+        </header>
+
+        <div class="page-wrap">
+          <section class="welcome-row">
+            <div>
+              <p class="eyebrow" data-en="WEDNESDAY, YOUR WAY" data-hi="बुधवार, आपके तरीके से">WEDNESDAY, YOUR WAY</p>
+              <h1><span data-en="Good morning, Dipayan" data-hi="सुप्रभात, Dipayan">Good morning, Dipayan</span><span class="wave">✳</span></h1>
+              <p class="lead" data-en="Tell your companion what you want done. It will make a simple plan you can review." data-hi="अपने साथी को बताइए कि क्या करना है। यह एक आसान योजना बनाएगा जिसे आप देख सकते हैं।">Tell your companion what you want done. It will make a simple plan you can review.</p>
+            </div>
+            <div class="focus-chip"><span class="focus-icon">✦</span><span><small data-en="YOUR FOCUS" data-hi="आपका ध्यान">YOUR FOCUS</small><strong data-en="One thing at a time" data-hi="एक समय में एक काम">One thing at a time</strong></span></div>
+          </section>
+
+          <section class="composer-card" aria-labelledby="task-title">
+            <div class="composer-heading"><div class="assistant-orb">✳</div><div><h2 id="task-title" data-en="What would you like help with?" data-hi="आप किस काम में मदद चाहते हैं?">What would you like help with?</h2><p data-en="Start with a goal. You stay in control at every step." data-hi="एक लक्ष्य से शुरू करें। हर कदम पर नियंत्रण आपका रहेगा।">Start with a goal. You stay in control at every step.</p></div></div>
+            <form id="task-form">
+              <label class="sr-only" for="task-input" data-en="Describe a task" data-hi="काम का विवरण">Describe a task</label>
+              <textarea id="task-input" rows="3" placeholder="Example: Review my website and suggest three improvements…" data-placeholder-en="Example: Review my website and suggest three improvements…" data-placeholder-hi="उदाहरण: मेरी वेबसाइट देखें और तीन सुधार सुझाएँ…" required></textarea>
+              <div class="composer-footer"><label class="select-project"><span class="project-spark">✦</span><span data-en="For" data-hi="इसके लिए">For</span><select id="project-select" aria-label="Choose a project"></select><span class="chevron">⌄</span></label><button class="primary-button" type="submit"><span data-en="Make a plan" data-hi="योजना बनाएँ">Make a plan</span><span aria-hidden="true">→</span></button></div>
+            </form>
+            <div class="suggestions"><span data-en="TRY ASKING" data-hi="ऐसे पूछें">TRY ASKING</span><button class="suggestion" data-prompt="Review my website and suggest three improvements">Review my website <span>↗</span></button><button class="suggestion" data-prompt="Help me plan a short video for my audience">Plan a short video <span>↗</span></button><button class="suggestion" data-prompt="Organize the next steps for my project">Organize next steps <span>↗</span></button></div>
+          </section>
+
+          <section id="plan-section" class="plan-card hidden" aria-live="polite" aria-labelledby="plan-heading"></section>
+
+          <section id="projects" class="section-block">
+            <div class="section-heading"><div><p class="eyebrow" data-en="YOUR WORK, IN CONTEXT" data-hi="आपका काम, सही संदर्भ में">YOUR WORK, IN CONTEXT</p><h2 data-en="Your projects" data-hi="आपके प्रोजेक्ट">Your projects</h2></div><button id="add-project-button" class="outline-button"><span>＋</span><span data-en="Add a project" data-hi="प्रोजेक्ट जोड़ें">Add a project</span></button></div>
+            <div id="project-grid" class="project-grid"></div>
+          </section>
+
+          <section id="activity" class="section-block activity-section">
+            <div class="section-heading"><div><p class="eyebrow" data-en="VISIBLE BY DESIGN" data-hi="स्पष्ट और आपके नियंत्रण में">VISIBLE BY DESIGN</p><h2 data-en="Your activity" data-hi="आपकी गतिविधि">Your activity</h2></div><button id="tracking-toggle" class="tracking-button"><span class="tracking-indicator"></span><span data-en="Task tracking is off" data-hi="काम की ट्रैकिंग बंद है">Task tracking is off</span></button></div>
+            <div id="activity-list" class="activity-list"></div>
+          </section>
+
+          <footer class="footer-note"><span class="footer-lock">◈</span><span data-en="KaamSaathi only saves what you enter here. This demo does not watch your screen or control your device." data-hi="KaamSaathi केवल वही सहेजता है जो आप यहाँ लिखते हैं। यह डेमो आपकी स्क्रीन नहीं देखता और डिवाइस नियंत्रित नहीं करता।">KaamSaathi only saves what you enter here. This demo does not watch your screen or control your device.</span></footer>
+        </div>
+      </main>
+    </div>
+
+    <dialog id="project-dialog" class="dialog-card">
+      <form id="project-form" method="dialog">
+        <button class="dialog-close" type="button" id="close-project-dialog" aria-label="Close">×</button>
+        <p class="eyebrow" data-en="A LITTLE CONTEXT HELPS" data-hi="थोड़ा संदर्भ मदद करता है">A LITTLE CONTEXT HELPS</p>
+        <h2 data-en="Add a project" data-hi="प्रोजेक्ट जोड़ें">Add a project</h2>
+        <p class="dialog-copy" data-en="For this demo, project details stay in this browser." data-hi="इस डेमो में, प्रोजेक्ट की जानकारी इसी ब्राउज़र में रहती है।">For this demo, project details stay in this browser.</p>
+        <label for="project-name" data-en="Project name" data-hi="प्रोजेक्ट का नाम">Project name</label><input id="project-name" maxlength="48" placeholder="e.g. My creator website" required />
+        <label for="project-kind" data-en="What kind of work?" data-hi="किस तरह का काम?">What kind of work?</label><select id="project-kind"><option value="Website">Website</option><option value="Content">Content & video</option><option value="Business">Small business</option><option value="Other">Other</option></select>
+        <button class="primary-button dialog-submit" type="submit"><span data-en="Save project" data-hi="प्रोजेक्ट सहेजें">Save project</span><span>→</span></button>
+      </form>
+    </dialog>
+
+    <dialog id="privacy-dialog" class="dialog-card">
+      <form method="dialog"><button class="dialog-close" aria-label="Close">×</button><p class="eyebrow" data-en="YOUR DEVICE, YOUR CHOICE" data-hi="आपका डिवाइस, आपकी पसंद">YOUR DEVICE, YOUR CHOICE</p><h2 data-en="Privacy & permissions" data-hi="गोपनीयता और अनुमतियाँ">Privacy & permissions</h2><p data-en="This is an interface prototype. It stores only the projects and tasks you enter in this browser’s local storage. It does not connect to a model, send data to a server, record your screen, or control other apps." data-hi="यह एक इंटरफ़ेस प्रोटोटाइप है। यह केवल आपके द्वारा दर्ज किए गए प्रोजेक्ट और काम को इसी ब्राउज़र में सहेजता है। यह किसी मॉडल से नहीं जुड़ता, सर्वर पर डेटा नहीं भेजता, स्क्रीन रिकॉर्ड नहीं करता और दूसरे ऐप नियंत्रित नहीं करता।">This is an interface prototype. It stores only the projects and tasks you enter in this browser’s local storage. It does not connect to a model, send data to a server, record your screen, or control other apps.</p><button class="primary-button dialog-submit" type="submit"><span data-en="Understood" data-hi="समझ गया">Understood</span><span>✓</span></button></form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="app.js" defer></script>
+  </body>
+</html>
+
