@@ -119,14 +119,14 @@ class WorkController extends ChangeNotifier {
     try {
       final values = jsonDecode(rawChat);
       if (values is List) {
-        messages = values.map(ChatLine.fromJson).whereType<ChatLine>().toList();
+        messages.addAll(values.map(ChatLine.fromJson).whereType<ChatLine>());
       }
     } catch (_) {}
     final rawEvents = prefs.getString('activity') ?? '[]';
     try {
       final values = jsonDecode(rawEvents);
       if (values is List) {
-        activity = values.map(WorkEvent.fromJson).whereType<WorkEvent>().toList();
+        activity.addAll(values.map(WorkEvent.fromJson).whereType<WorkEvent>());
       }
     } catch (_) {}
   }
@@ -1022,7 +1022,11 @@ class ActivityScreen extends StatelessWidget {
             if (c.activity.isEmpty) _Notice(text: c.tr('Your work activity will appear here.', 'आपकी काम की गतिविधि यहाँ दिखेगी।'), icon: Icons.history),
             ...c.activity.map((event) => Card(
                   margin: const EdgeInsets.only(bottom: 8),
-                  child: ListTile(leading: const Icon(Icons.check_circle_outline, color: _leaf), title: Text(event.title), subtitle: Text(MaterialLocalizations.of(context).formatMediumDate(event.time)),
+                  child: ListTile(
+                    leading: const Icon(Icons.check_circle_outline, color: _leaf),
+                    title: Text(event.title),
+                    subtitle: Text(MaterialLocalizations.of(context).formatMediumDate(event.time)),
+                  ),
                 )),
           ]);
         },
