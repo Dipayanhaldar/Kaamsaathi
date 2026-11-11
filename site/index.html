@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f3ec">
+  <meta name="description" content="KaamSaathi is a free, private offline AI work companion for Android and Windows.">
+  <meta property="og:title" content="KaamSaathi — thoughtful help, on your device">
+  <meta property="og:description" content="A simple offline-first work companion for creators, students, and small businesses.">
+  <title>KaamSaathi — thoughtful help, on your device</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%231a4d3e'/%3E%3Cpath d='M17 32h30M32 17v30' stroke='%23f4b942' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4f3ec;
+      --ink: #1c2925;
+      --muted: #52635b;
+      --green: #1a4d3e;
+      --green-dark: #12372d;
+      --mint: #dcebe1;
+      --saffron: #f4b942;
+      --line: #d5ddd4;
+      --white: #fffefa;
+      --shadow: 0 24px 70px rgba(28, 41, 37, .11);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, button:focus-visible { outline: 3px solid #bb7610; outline-offset: 4px; }
+    .wrap { width: min(1140px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: inline-flex; gap: 11px; align-items: center; text-decoration: none; font-size: 1.13rem; font-weight: 780; letter-spacing: -.03em; }
+    .brand-mark { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; color: var(--saffron); background: var(--green); }
+    .brand-mark svg { width: 23px; height: 23px; }
+    .top-actions { display: flex; align-items: center; gap: 20px; }
+    .top-link { color: var(--muted); text-decoration: none; font-weight: 620; }
+    .top-link:hover { color: var(--green); }
+    .language { min-height: 44px; padding: 7px 13px; border: 1px solid var(--line); border-radius: 99px; background: var(--white); color: var(--green); font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; }
+    .hero { position: relative; overflow: hidden; border-radius: 30px; padding: clamp(32px, 6vw, 74px); display: grid; grid-template-columns: 1.12fr .88fr; gap: 46px; align-items: center; color: #fffefa; background: var(--green); box-shadow: var(--shadow); }
+    .hero::before { content: ""; position: absolute; width: 400px; height: 400px; right: -180px; top: -210px; border: 1px solid rgba(255,255,255,.14); border-radius: 50%; box-shadow: 0 0 0 45px rgba(255,255,255,.035), 0 0 0 90px rgba(255,255,255,.025); pointer-events: none; }
+    .hero-copy, .hero-art { position: relative; z-index: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 18px; color: #dcebe1; font-size: .85rem; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--saffron); }
+    h1 { max-width: 660px; margin: 0; font-size: clamp(2.65rem, 6vw, 5rem); line-height: 1.05; letter-spacing: -.065em; }
+    .hero-copy > p:not(.eyebrow) { max-width: 600px; margin: 23px 0 28px; color: #e4eee8; font-size: clamp(1.06rem, 2vw, 1.22rem); }
+    .buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+    .button { min-height: 56px; padding: 13px 21px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 14px; text-decoration: none; font-weight: 760; transition: transform .18s ease, background .18s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: var(--green-dark); background: var(--saffron); }
+    .button-primary:hover { background: #ffd16b; }
+    .button-quiet { color: #fffefa; border: 1px solid rgba(255,255,255,.32); background: rgba(255,255,255,.08); }
+    .button-quiet:hover { background: rgba(255,255,255,.16); }
+    .download-note { margin: 14px 0 0 !important; color: #dcebe1 !important; font-size: .88rem !important; }
+    .hero-art { min-height: 360px; display: grid; place-items: center; }
+    .orbit { position: absolute; width: min(390px, 90%); aspect-ratio: 1; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; }
+    .orbit::before, .orbit::after { content: ""; position: absolute; border: 1px solid rgba(255,255,255,.12); border-radius: 50%; inset: 24px; }
+    .orbit::after { inset: 52px; }
+    .phone { position: relative; width: min(285px, 75%); padding: 12px; border: 1px solid rgba(255,255,255,.32); border-radius: 30px; background: #f7f7f0; transform: rotate(2deg); box-shadow: 0 25px 55px rgba(0,0,0,.22); }
+    .phone-screen { min-height: 320px; padding: 18px; border-radius: 21px; background: #fffefa; color: var(--ink); }
+    .phone-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid #e9ede7; font-size: .75rem; font-weight: 760; }
+    .online-dot { width: 9px; height: 9px; display: inline-block; margin-right: 6px; border-radius: 50%; background: #38875c; }
+    .prompt-card { margin: 18px 0 11px auto; max-width: 90%; padding: 12px 13px; border-radius: 14px 14px 4px 14px; background: var(--mint); font-size: .78rem; line-height: 1.5; }
+    .reply-card { padding: 13px; border: 1px solid #e4e8e1; border-radius: 4px 14px 14px; font-size: .76rem; line-height: 1.55; }
+    .reply-card strong { display: block; margin-bottom: 5px; color: var(--green); }
+    .phone-footer { margin-top: 20px; padding: 10px 12px; border: 1px solid #e4e8e1; border-radius: 12px; color: #7a8780; font-size: .7rem; }
+    .section { padding: 90px 0; }
+    .section-heading { max-width: 700px; margin: 0 auto 38px; text-align: center; }
+    .section-heading .eyebrow { color: var(--green); }
+    h2 { margin: 0; font-size: clamp(2rem, 4.3vw, 3.25rem); line-height: 1.14; letter-spacing: -.05em; }
+    .section-heading p { margin: 14px 0 0; color: var(--muted); font-size: 1.05rem; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .feature { min-height: 220px; padding: 25px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); }
+    .icon { width: 46px; height: 46px; margin-bottom: 18px; display: grid; place-items: center; border-radius: 14px; color: var(--green); background: var(--mint); }
+    .icon svg { width: 24px; height: 24px; }
+    h3 { margin: 0 0 8px; font-size: 1.16rem; line-height: 1.3; letter-spacing: -.02em; }
+    .feature p { margin: 0; color: var(--muted); }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; counter-reset: steps; }
+    .step { position: relative; padding: 23px 24px 24px; border-top: 2px solid var(--green); background: rgba(255,254,250,.65); counter-increment: steps; }
+    .step::before { content: "0" counter(steps); display: block; margin-bottom: 18px; color: #8c6b24; font-weight: 800; letter-spacing: .08em; }
+    .step p { margin: 0; color: var(--muted); }
+    .privacy-band { padding: 38px; display: grid; grid-template-columns: 1fr auto; gap: 25px; align-items: center; border-radius: 22px; background: #e6eee5; }
+    .privacy-band h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); }
+    .privacy-band p { max-width: 720px; margin: 10px 0 0; color: var(--muted); }
+    .privacy-mark { width: 76px; height: 76px; display: grid; place-items: center; border: 1px solid #bbd1c1; border-radius: 50%; color: var(--green); background: rgba(255,255,255,.55); }
+    .privacy-mark svg { width: 35px; height: 35px; }
+    .limits { margin-top: 18px; padding: 23px 26px; border: 1px solid #ead49c; border-radius: 18px; background: #fff8e4; }
+    .limits p { margin: 6px 0 0; color: #655638; }
+    .final-cta { margin: 0 0 82px; padding: clamp(30px, 5vw, 56px); border-radius: 26px; text-align: center; color: white; background: var(--green-dark); }
+    .final-cta h2 { max-width: 700px; margin: 0 auto; }
+    .final-cta p { margin: 12px 0 24px; color: #dcebe1; }
+    .final-cta .buttons { justify-content: center; }
+    footer { padding: 24px 0 38px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer-links a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; gap: 20px; }
+      .hero-art { min-height: 310px; }
+      .phone-screen { min-height: 295px; }
+      .feature-grid { grid-template-columns: 1fr 1fr; }
+      .steps { gap: 12px; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: min(100% - 28px, 520px); }
+      .topbar { min-height: 70px; }
+      .top-link { display: none; }
+      .hero { padding: 30px 23px 22px; border-radius: 23px; }
+      .hero-art { min-height: 285px; }
+      .phone { width: 245px; }
+      .phone-screen { min-height: 276px; }
+      .feature-grid, .steps { grid-template-columns: 1fr; }
+      .feature { min-height: auto; }
+      .section { padding: 66px 0; }
+      .privacy-band { grid-template-columns: 1fr; padding: 25px; }
+      .privacy-mark { display: none; }
+      .final-cta { margin-bottom: 60px; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap topbar">
+    <a class="brand" href="#" aria-label="KaamSaathi home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
+      <span>KaamSaathi</span>
+    </a>
+    <nav class="top-actions" aria-label="Main navigation">
+      <a class="top-link" href="#how" data-copy="navHow">How it works</a>
+      <a class="top-link" href="#privacy" data-copy="navPrivacy">Privacy</a>
+      <button class="language" id="language-toggle" type="button" aria-label="Switch language to Hindi" aria-pressed="false">हिन्दी</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="wrap hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow" data-copy="eyebrow">Made for work. Kept on your device.</p>
+        <h1 id="hero-title" data-copy="heroTitle">A thoughtful helper for your everyday work.</h1>
+        <p data-copy="heroIntro">Plan, write, and review with a small AI that runs on your Android phone or Windows PC. Start online once; then keep working offline.</p>
+        <div class="buttons">
+          <a class="button button-primary" href="https://github.com/Dipayanhaldar/Kaamsaathi/releases/latest/download/KaamSaathi-Android-arm64.apk" data-copy="androidButton">Get the Android app <span aria-hidden="true">↓</span></a>
+          <a class="button button-quiet" href="https://github.com/Dipayanhaldar/Kaamsaathi/releases/latest/download/KaamSaathi-Windows-x64.zip" data-copy="windowsButton">Get Windows app <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="download-note" data-copy="downloadNote">Free download · No account · No AI API · First model download needs internet</p>
+      </div>
+      <div class="hero-art" aria-label="Illustration of an offline assistant conversation">
+        <div class="orbit" aria-hidden="true"></div>
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-head"><span>KaamSaathi</span><span><i class="online-dot"></i><span data-copy="localLabel">On this device</span></span></div>
+            <div class="prompt-card" data-copy="mockPrompt">Help me plan a simple product launch.</div>
+            <div class="reply-card"><strong data-copy="mockReplyTitle">Let’s make it manageable.</strong><span data-copy="mockReply">Start with three things: who it helps, what you’ll share, and where people can find it. I can help you draft each one.</span></div>
+            <div class="phone-footer" data-copy="mockFooter">Your selected files stay on your device.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" aria-labelledby="features-title">
+      <div class="section-heading">
+        <p class="eyebrow" data-copy="featureEyebrow">A calmer kind of AI</p>
+        <h2 id="features-title" data-copy="featuresTitle">Useful help, with you in control.</h2>
+        <p data-copy="featuresIntro">Designed to be approachable for creators, students, small businesses, and anyone who prefers clear steps.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H20v15H7.5A2.5 2.5 0 0 0 5 20.5v-15Z" stroke="currentColor" stroke-width="1.8"/><path d="M5 19.5A2.5 2.5 0 0 1 7.5 17H20M9 7h7M9 10h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          <h3 data-copy="featureChatTitle">Explain, plan, and draft</h3>
+          <p data-copy="featureChatText">Ask in plain language for a clearer explanation, a first draft, or a practical next step.</p>
+        </article>
+        <article class="feature">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3.5h7l5 5V20a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 6 20V5a1.5 1.5 0 0 1 1-1.5Z" stroke="currentColor" stroke-width="1.8"/><path d="M14 4v5h5M9 13h6M9 16h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          <h3 data-copy="featureFilesTitle">Choose the files it sees</h3>
+          <p data-copy="featureFilesText">Select project text files when you want context. KaamSaathi does not scan folders in the background.</p>
+        </article>
+        <article class="feature">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19.5h16M6 16l4-4 3 2 5-6M17 8h1v1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3 data-copy="featureSiteTitle">Review a web page</h3>
+          <p data-copy="featureSiteText">Get a few helpful checks for common HTML details, such as a page title, mobile viewport, and image descriptions.</p>
+        </article>
+        <article class="feature">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5 19 6v5.4c0 4.4-2.8 7.4-7 9.1-4.2-1.7-7-4.7-7-9.1V6l7-2.5Z" stroke="currentColor" stroke-width="1.8"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3 data-copy="featurePrivateTitle">Private by design</h3>
+          <p data-copy="featurePrivateText">No sign-in, cloud AI service, tracking, or in-app purchase. Your chat and activity stay on your device.</p>
+        </article>
+        <article class="feature">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5h16v13H4zM8 9h8M8 12h8M8 15h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 3v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          <h3 data-copy="featureLanguageTitle">English and Hindi</h3>
+          <p data-copy="featureLanguageText">Choose the language that feels comfortable. Larger text and clear buttons help keep things easy to follow.</p>
+        </article>
+        <article class="feature">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.36-6.36-2.12 2.12M7.76 16.24l-2.12 2.12m12.72 0-2.12-2.12M7.76 7.76 5.64 5.64" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/></svg></span>
+          <h3 data-copy="featureOfflineTitle">Works offline after setup</h3>
+          <p data-copy="featureOfflineText">The AI runs on your device. Download your chosen model once over Wi-Fi, then use chat without an internet connection.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="how" aria-labelledby="how-title">
+      <div class="section-heading">
+        <p class="eyebrow" data-copy="howEyebrow">Simple to get started</p>
+        <h2 id="how-title" data-copy="howTitle">Three small steps.</h2>
+        <p data-copy="howIntro">No command line, server, Python, or Ollama setup.</p>
+      </div>
+      <div class="steps">
+        <article class="step"><h3 data-copy="stepOneTitle">Download the app</h3><p data-copy="stepOneText">Choose the Android APK or Windows ZIP for your device.</p></article>
+        <article class="step"><h3 data-copy="stepTwoTitle">Get your local AI</h3><p data-copy="stepTwoText">While online, pick the lighter model and download it once. The file is about 533 MB.</p></article>
+        <article class="step"><h3 data-copy="stepThreeTitle">Use it offline</h3><p data-copy="stepThreeText">Open KaamSaathi and ask for help. Your prompts and selected files are processed locally.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="privacy" aria-labelledby="privacy-title">
+      <div class="privacy-band">
+        <div>
+          <h2 id="privacy-title" data-copy="privacyTitle">Your work stays with you.</h2>
+          <p data-copy="privacyText">KaamSaathi has no cloud backend, account, AI API, telemetry, or transaction. The model is downloaded from Hugging Face only when you choose to set up offline AI. Your device, storage, and internet data are yours to manage.</p>
+        </div>
+        <span class="privacy-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5.4c0 4.4-2.8 7.4-7 9.1-4.2-1.7-7-4.7-7-9.1V6l7-3Z" stroke="currentColor" stroke-width="1.7"/><path d="M9 12h6M12 9v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+      </div>
+      <aside class="limits">
+        <h3 data-copy="limitsTitle">A clear note about this first version</h3>
+        <p data-copy="limitsText">This is a small local AI, so answers can be slow or mistaken. KaamSaathi does not watch your screen, run hiddenly in the background, control other apps, browse the live web, or change your files. You stay in charge of every action.</p>
+      </aside>
+    </section>
+
+    <section class="wrap final-cta" aria-labelledby="download-title">
+      <h2 id="download-title" data-copy="downloadTitle">Take your helper with you.</h2>
+      <p data-copy="downloadIntro">Free direct downloads. Start with the model that fits your device.</p>
+      <div class="buttons">
+        <a class="button button-primary" href="https://github.com/Dipayanhaldar/Kaamsaathi/releases/latest/download/KaamSaathi-Android-arm64.apk" data-copy="androidButton">Get the Android app <span aria-hidden="true">↓</span></a>
+        <a class="button button-quiet" href="https://github.com/Dipayanhaldar/Kaamsaathi/releases/latest/download/KaamSaathi-Windows-x64.zip" data-copy="windowsButton">Get Windows app <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>© 2026 KaamSaathi · <span data-copy="footerNote">Built for useful, private work.</span></span>
+      <nav class="footer-links" aria-label="More information">
+        <a href="https://github.com/Dipayanhaldar/Kaamsaathi" data-copy="sourceLink">Source</a>
+        <a href="https://github.com/Dipayanhaldar/Kaamsaathi/releases/latest" data-copy="releaseLink">All downloads</a>
+        <a href="https://github.com/Dipayanhaldar/Kaamsaathi/blob/main/docs/PRIVACY.md" data-copy="privacyLink">Privacy</a>
+        <a href="https://github.com/Dipayanhaldar/Kaamsaathi/blob/main/docs/PRODUCT.md" data-copy="scopeLink">Product scope</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const copy = {
+        en: {
+          navHow: "How it works", navPrivacy: "Privacy", eyebrow: "Made for work. Kept on your device.",
+          heroTitle: "A thoughtful helper for your everyday work.",
+          heroIntro: "Plan, write, and review with a small AI that runs on your Android phone or Windows PC. Start online once; then keep working offline.",
+          androidButton: "Get the Android app ↓", windowsButton: "Get Windows app ↓",
+          downloadNote: "Free download · No account · No AI API · First model download needs internet",
+          localLabel: "On this device", mockPrompt: "Help me plan a simple product launch.",
+          mockReplyTitle: "Let’s make it manageable.",
+          mockReply: "Start with three things: who it helps, what you’ll share, and where people can find it. I can help you draft each one.",
+          mockFooter: "Your selected files stay on your device.",
+          featureEyebrow: "A calmer kind of AI", featuresTitle: "Useful help, with you in control.",
+          featuresIntro: "Designed to be approachable for creators, students, small businesses, and anyone who prefers clear steps.",
+          featureChatTitle: "Explain, plan, and draft", featureChatText: "Ask in plain language for a clearer explanation, a first draft, or a practical next step.",
+          featureFilesTitle: "Choose the files it sees", featureFilesText: "Select project text files when you want context. KaamSaathi does not scan folders in the background.",
+          featureSiteTitle: "Review a web page", featureSiteText: "Get a few helpful checks for common HTML details, such as a page title, mobile viewport, and image descriptions.",
+          featurePrivateTitle: "Private by design", featurePrivateText: "No sign-in, cloud AI service, tracking, or in-app purchase. Your chat and activity stay on your device.",
+          featureLanguageTitle: "English and Hindi", featureLanguageText: "Choose the language that feels comfortable. Larger text and clear buttons help keep things easy to follow.",
+          featureOfflineTitle: "Works offline after setup", featureOfflineText: "The AI runs on your device. Download your chosen model once over Wi-Fi, then use chat without an internet connection.",
+          howEyebrow: "Simple to get started", howTitle: "Three small steps.", howIntro: "No command line, server, Python, or Ollama setup.",
+          stepOneTitle: "Download the app", stepOneText: "Choose the Android APK or Windows ZIP for your device.",
+          stepTwoTitle: "Get your local AI", stepTwoText: "While online, pick the lighter model and download it once. The file is about 533 MB.",
+          stepThreeTitle: "Use it offline", stepThreeText: "Open KaamSaathi and ask for help. Your prompts and selected files are processed locally.",
+          privacyTitle: "Your work stays with you.",
+          privacyText: "KaamSaathi has no cloud backend, account, AI API, telemetry, or transaction. The model is downloaded from Hugging Face only when you choose to set up offline AI. Your device, storage, and internet data are yours to manage.",
+          limitsTitle: "A clear note about this first version",
+          limitsText: "This is a small local AI, so answers can be slow or mistaken. KaamSaathi does not watch your screen, run hiddenly in the background, control other apps, browse the live web, or change your files. You stay in charge of every action.",
+          downloadTitle: "Take your helper with you.", downloadIntro: "Free direct downloads. Start with the model that fits your device.",
+          footerNote: "Built for useful, private work.", sourceLink: "Source", releaseLink: "All downloads", privacyLink: "Privacy", scopeLink: "Product scope"
+        },
+        hi: {
+          navHow: "कैसे काम करता है", navPrivacy: "गोपनीयता", eyebrow: "काम के लिए बना। आपके डिवाइस पर रहता है।",
+          heroTitle: "रोज़मर्रा के काम के लिए एक समझदार साथी।",
+          heroIntro: "अपने Android फ़ोन या Windows PC पर चलने वाले छोटे AI के साथ योजना बनाएँ, लिखें और समीक्षा करें। मॉडल एक बार डाउनलोड करें, फिर ऑफ़लाइन काम करें।",
+          androidButton: "Android ऐप डाउनलोड करें ↓", windowsButton: "Windows ऐप डाउनलोड करें ↓",
+          downloadNote: "मुफ़्त डाउनलोड · खाता नहीं · AI API नहीं · मॉडल पहली बार डाउनलोड करने के लिए इंटरनेट चाहिए",
+          localLabel: "इसी डिवाइस पर", mockPrompt: "एक आसान प्रोडक्ट लॉन्च की योजना बनाने में मदद करें।",
+          mockReplyTitle: "इसे आसान चरणों में बाँटते हैं।",
+          mockReply: "तीन बातों से शुरू करें: यह किसकी मदद करता है, आप क्या साझा करेंगे, और लोग इसे कहाँ पाएँगे। हर बात का मसौदा बनाने में मैं मदद कर सकता हूँ।",
+          mockFooter: "आपकी चुनी हुई फ़ाइलें आपके डिवाइस पर रहती हैं।",
+          featureEyebrow: "AI का सरल रूप", featuresTitle: "काम की मदद, नियंत्रण आपके हाथ में।",
+          featuresIntro: "क्रिएटर, विद्यार्थी, छोटे व्यवसाय और साफ़ निर्देश पसंद करने वाले लोगों के लिए बनाया गया।",
+          featureChatTitle: "समझें, योजना बनाएँ, लिखें", featureChatText: "सरल भाषा में समझाने, पहला मसौदा बनाने या अगला कदम सुझाने के लिए पूछें।",
+          featureFilesTitle: "आप तय करें कौन-सी फ़ाइलें", featureFilesText: "संदर्भ चाहिए तो टेक्स्ट फ़ाइलें चुनें। KaamSaathi पीछे से फ़ोल्डर स्कैन नहीं करता।",
+          featureSiteTitle: "वेब पेज की समीक्षा", featureSiteText: "HTML की कुछ आम बातों की जाँच करें, जैसे पेज शीर्षक, मोबाइल दृश्य और चित्रों का विवरण।",
+          featurePrivateTitle: "गोपनीयता पहले", featurePrivateText: "साइन-इन, क्लाउड AI सेवा, ट्रैकिंग या ऐप के अंदर खरीदारी नहीं। चैट और गतिविधि आपके डिवाइस पर रहती है।",
+          featureLanguageTitle: "अंग्रेज़ी और हिंदी", featureLanguageText: "अपनी सहज भाषा चुनें। बड़ा टेक्स्ट और साफ़ बटन उपयोग आसान रखते हैं।",
+          featureOfflineTitle: "सेटअप के बाद ऑफ़लाइन", featureOfflineText: "AI आपके डिवाइस पर चलता है। चुना हुआ मॉडल Wi-Fi से एक बार डाउनलोड करें, फिर बिना इंटरनेट चैट करें।",
+          howEyebrow: "शुरुआत आसान", howTitle: "तीन आसान कदम।", howIntro: "कमांड लाइन, सर्वर, Python या Ollama सेटअप की ज़रूरत नहीं।",
+          stepOneTitle: "ऐप डाउनलोड करें", stepOneText: "अपने डिवाइस के लिए Android APK या Windows ZIP चुनें।",
+          stepTwoTitle: "अपना स्थानीय AI लें", stepTwoText: "इंटरनेट पर हल्का मॉडल चुनकर एक बार डाउनलोड करें। फ़ाइल लगभग 533 MB है।",
+          stepThreeTitle: "ऑफ़लाइन इस्तेमाल करें", stepThreeText: "KaamSaathi खोलें और मदद माँगें। आपके सवाल और चुनी हुई फ़ाइलें डिवाइस पर ही संसाधित होती हैं।",
+          privacyTitle: "आपका काम आपके पास रहता है।",
+          privacyText: "KaamSaathi में क्लाउड बैकएंड, खाता, AI API, ट्रैकिंग या लेन-देन नहीं है। ऑफ़लाइन AI सेटअप चुनने पर ही मॉडल Hugging Face से डाउनलोड होता है। डिवाइस, स्टोरेज और इंटरनेट डेटा आपके नियंत्रण में हैं।",
+          limitsTitle: "पहले संस्करण के बारे में साफ़ जानकारी",
+          limitsText: "यह छोटा स्थानीय AI है; जवाब धीमे या गलत हो सकते हैं। KaamSaathi आपकी स्क्रीन नहीं देखता, छिपकर बैकग्राउंड में नहीं चलता, दूसरे ऐप नियंत्रित नहीं करता, लाइव वेब नहीं खोलता और आपकी फ़ाइलें नहीं बदलता। हर काम का नियंत्रण आपके पास है।",
+          downloadTitle: "अपने साथी को साथ रखें।", downloadIntro: "सीधे और मुफ़्त डाउनलोड। अपने डिवाइस के अनुसार मॉडल चुनें।",
+          footerNote: "काम की और निजी मदद के लिए।", sourceLink: "सोर्स", releaseLink: "सभी डाउनलोड", privacyLink: "गोपनीयता", scopeLink: "काम की सीमा"
+        }
+      };
+      const button = document.getElementById("language-toggle");
+      let language = "en";
+      button.addEventListener("click", () => {
+        language = language === "en" ? "hi" : "en";
+        document.documentElement.lang = language;
+        document.querySelectorAll("[data-copy]").forEach((node) => {
+          const key = node.dataset.copy;
+          if (copy[language][key]) node.textContent = copy[language][key];
+        });
+        button.textContent = language === "en" ? "हिन्दी" : "English";
+        button.setAttribute("aria-label", language === "en" ? "Switch language to Hindi" : "Switch language to English");
+        button.setAttribute("aria-pressed", language === "hi" ? "true" : "false");
+      });
+    })();
+  </script>
+</body>
+</html>
