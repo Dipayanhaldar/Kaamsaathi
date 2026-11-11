@@ -327,7 +327,17 @@ class WorkController extends ChangeNotifier {
     ];
     try {
       final answer = await engine!
-          .create(messagesForModel, params: const GenerationParams(maxTokens: 384, temp: 0.35))
+          .create(
+              messagesForModel,
+              params: const GenerationParams(
+                maxTokens: 256,
+                temp: 1.0,
+                topP: 1.0,
+                topK: 20,
+                presencePenalty: 2.0,
+              ),
+              enableThinking: false,
+            )
           .text();
       messages.add(ChatLine('assistant', answer.trim(), DateTime.now()));
       _record(tr('Completed a local AI task', 'लोकल AI काम पूरा हुआ'));
