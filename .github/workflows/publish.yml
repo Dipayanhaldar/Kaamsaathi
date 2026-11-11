@@ -33,7 +33,7 @@ jobs:
       - name: Generate Android build host
         working-directory: apps/kaamsaathi
         run: |
-          flutter create --platforms=android --project-name=kaamsaathi --org=in.dipayan build_host
+          flutter create --platforms=android --project-name=kaamsaathi --org=com.dipayan build_host
           cp pubspec.yaml build_host/pubspec.yaml
           mkdir -p build_host/lib
           cp -R lib/. build_host/lib/
@@ -67,7 +67,7 @@ jobs:
         working-directory: apps/kaamsaathi
         shell: pwsh
         run: |
-          flutter create --platforms=windows --project-name=kaamsaathi --org=in.dipayan build_host
+          flutter create --platforms=windows --project-name=kaamsaathi --org=com.dipayan build_host
           Copy-Item pubspec.yaml build_host\pubspec.yaml -Force
           Copy-Item lib\* build_host\lib\ -Recurse -Force
       - name: Build portable Windows app

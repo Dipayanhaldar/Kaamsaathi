@@ -12,7 +12,7 @@ The 0.8B model file is about 533 MB. The 4B Q4 model file is about 2.74 GB and u
 
 ## Build from source
 
-The GitHub Actions workflow generates temporary Android and Windows Flutter hosts, copies this directory's `pubspec.yaml` and `lib/` into them, then builds both platforms. It requires Flutter 3.38.6 or newer and Dart 3.10.7 or newer; Android builds also use Java 17. To build locally, install Flutter, run `flutter create --platforms=android,windows --project-name=kaamsaathi --org=in.dipayan build_host` here, copy `pubspec.yaml` and the contents of `lib/` into `build_host/`, then run `flutter pub get` and the relevant `flutter build` command there.
+The GitHub Actions workflow generates temporary Android and Windows Flutter hosts, copies this directory's `pubspec.yaml` and `lib/` into them, then builds both platforms. It requires Flutter 3.38.6 or newer and Dart 3.10.7 or newer; Android builds also use Java 17. To build locally, install Flutter, run `flutter create --platforms=android,windows --project-name=kaamsaathi --org=com.dipayan build_host` here, copy `pubspec.yaml` and the contents of `lib/` into `build_host/`, then run `flutter pub get` and the relevant `flutter build` command there.
 
 ## Dependencies and model
 
