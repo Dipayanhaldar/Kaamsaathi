@@ -15,7 +15,7 @@ On Windows, extract the whole ZIP folder and open `kaamsaathi.exe`. On Android, 
 
 ## First use and offline mode
 
-The app contains its local inference engine. It does **not** require Python, Ollama, a cloud account, or an AI API. When you first open **Set up free offline AI**, choose a model and download it over the internet. After that finishes, chat and source review run on your device without internet. The app does not bundle model weights in the APK or Windows ZIP, so you choose when to use the storage and data for the model download.
+The app contains its local inference engine. It does **not** require Python, Ollama, a cloud account, or an AI API. When you first open **Set up free offline AI**, choose a model and download it over the internet. After that finishes, chat and source review run on your device without internet. KaamSaathi reloads the saved model from local storage when you reopen the app. The app does not bundle model weights in the APK or Windows ZIP, so you choose when to use the storage and data for the model download.
 
 - **Qwen3.5 0.8B Q4:** about 533 MB; the lighter choice for phones and everyday tasks.
 - **Qwen3.5 4B Q4:** about 2.74 GB; requires substantially more memory and storage. The app recommends 8 GB RAM or more.
