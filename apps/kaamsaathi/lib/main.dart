@@ -217,7 +217,9 @@ class WorkController extends ChangeNotifier {
       loadedModelId = id;
       selectedModel = id;
       await prefs.setString('model', id);
-      _record(tr('Local AI ready: ${choice.name}', 'लोकल AI तैयार: ${choice.name}'));
+      if (!cacheOnly) {
+        _record(tr('Local AI ready: ${choice.name}', 'लोकल AI तैयार: ${choice.name}'));
+      }
       downloadStatus = tr('Model is ready on this device.', 'मॉडल इस डिवाइस पर तैयार है।');
     } catch (error) {
       engine = null;
