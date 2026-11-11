@@ -1,1 +1,55 @@
-YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×ıN‹Z–‹­¦ëeŠw¬ÔŒ-……µM……Ñ¡¤4(4(¨©ÁÉ¥Ù…Ñ”°½™™±¥¹”µ™¥ÉÍĞİ½É¬½µÁ…¹¥½¸™½È¹‘É½¥…¹]¥¹‘½İÌ¸¨¨UÍ”¥ĞÑ¼•áÁ±…¥¸°Á±…¸°É•Ù¥•Ü°…¹‘É…™Ğ™É½´„Íµ…±°±½…°$µ½‘•°¸Q¡”™¥ÉÍĞÙ•ÉÍ¥½¸¥Ì‘•Í¥¹•™½ÈÉ•…Ñ½ÉÌ°ÍÑÕ‘•¹ÑÌ°…¹Íµ…±°‰ÕÍ¥¹•ÍÍ•Ì°İ¥Ñ Í¥µÁ±”¹±¥Í …¹!¥¹‘¤½¹ÑÉ½±Ì¸4(4(¨©]•‰Í¥Ñ”è¨¨m­……µÍ……Ñ¡¤µ‘½İ¹±½…‘Ì¹½¹É•¹‘•È¹½µt¡¡ÑÑÁÌè¼½­……µÍ……Ñ¡¤µ‘½İ¹±½…‘Ì¹½¹É•¹‘•È¹½´¼¤4(4(ŒŒ½İ¹±½…4(4)=Á•¸m¥Ñ!ÕˆI•±•…Í•Ít¡¡ÑÑÁÌè¼½¥Ñ¡Õˆ¹½´½¥Á…å…¹¡…±‘…È½-……µÍ……Ñ¡¤½É•±•…Í•Ì½±…Ñ•ÍĞ¤…¹‘½İ¹±½…è4(4(´-……µM……Ñ¡¤µ¹‘É½¥µ…É´ØĞ¹…Á­€™½Èµ½ÍĞÉ••¹Ğ€ØĞµ‰¥Ğ¹‘É½¥Á¡½¹•Ì¸4(´-……µM……Ñ¡¤µ]¥¹‘½İÌµàØĞ¹é¥Á€™½È€ØĞµ‰¥Ğ]¥¹‘½İÌ€ÄÀ¼ÄÄAÌ¸4(4)=¸]¥¹‘½İÌ°•áÑÉ…ĞÑ¡”İ¡½±”i%@™½±‘•È…¹½Á•¸­……µÍ……Ñ¡¤¹•á•€¸=¸¹‘É½¥°¥¹ÍÑ…±°Ñ¡”A,™É½´å½ÕÈ‘½İ¹±½…‘•™¥±”ì¹‘É½¥µ…ä…Í¬å½ÔÑ¼…±±½Ü¥¹ÍÑ…±±…Ñ¥½¸™É½´Ñ¡…ĞÍ½ÕÉ”¸Q¡¥Ì¥Ì„‘¥É•Ğµ‘½İ¹±½…‰•Ñ„°¹½Ğ„5¥É½Í½™ĞMÑ½É”Á…­…”¸4(4(ŒŒ¥ÉÍĞÕÍ”…¹½™™±¥¹”µ½‘”4(4)Q¡”…ÁÀ½¹Ñ…¥¹Ì¥ÑÌ±½…°¥¹™•É•¹”•¹¥¹”¸%Ğ‘½•Ì€¨©¹½Ğ¨¨É•ÅÕ¥É”AåÑ¡½¸°=±±…µ„°„±½Õ…½Õ¹Ğ°½È…¸$A$¸]¡•¸å½Ô™¥ÉÍĞ½Á•¸€¨©M•ĞÕÀ™É•”½™™±¥¹”$¨¨°¡½½Í”„µ½‘•°…¹‘½İ¹±½…¥Ğ½Ù•ÈÑ¡”¥¹Ñ•É¹•Ğ¸™Ñ•ÈÑ¡…Ğ™¥¹¥Í¡•Ì°¡…Ğ…¹Í½ÕÉ”É•Ù¥•ÜÉÕ¸½¸å½ÕÈ‘•Ù¥”İ¥Ñ¡½ÕĞ¥¹Ñ•É¹•Ğ¸-……µM……Ñ¡¤É•±½…‘ÌÑ¡”Í…Ù•µ½‘•°™É½´±½…°ÍÑ½É…”İ¡•¸å½ÔÉ•½Á•¸Ñ¡”…ÁÀ¸Q¡”…ÁÀ‘½•Ì¹½Ğ‰Õ¹‘±”µ½‘•°İ•¥¡ÑÌ¥¸Ñ¡”A,½È]¥¹‘½İÌi%@°Í¼å½Ô¡½½Í”İ¡•¸Ñ¼ÕÍ”Ñ¡”ÍÑ½É…”…¹‘…Ñ„™½ÈÑ¡”µ½‘•°‘½İ¹±½…¸4(4(´€¨©Eİ•¸Ì¸Ô€À¸áDĞè¨¨…‰½ÕĞ€ÔÌÌ5ìÑ¡”±¥¡Ñ•È¡½¥”™½ÈÁ¡½¹•Ì…¹•Ù•Éå‘…äƒı¶‰ËkºwµçT½¹”µÑ¥µ”µ½‘•°‘½İ¹±½…½µ•Ì™É½´!Õ¥¹œ…”¸e½ÔÍÑ¥±°ÁÉ½Ù¥‘”å½ÕÈ½İ¸‘•Ù¥”°ÍÑ½É…”°•±•ÑÉ¥¥Ñä°…¹¥¹Ñ•É¹•Ğ‘…Ñ„™½ÈÑ¡…Ğ‘½İ¹±½…¸4(4)I•…mAÉ¥Ù…åt¡‘½Ì½AI%Yd¹µ¤°mAÉ½‘ÕĞÍ½Á•t¡‘½Ì½AI=UP¹µ¤°mÉ¡¥Ñ•ÑÕÉ•t¡‘½Ì½I!%QQUI¹µ¤°…¹mI½…‘µ…Át¡‘½Ì½I=5@¹µ¤¸4(4(ŒŒ	Õ¥±™É½´Í½ÕÉ”4(4)Q¡”¥Ñ!ÕˆÑ¥½¹Ìİ½É­™±½Ü‰Õ¥±‘ÌÑ¡”¹‘É½¥…É´ØĞA,…¹Á½ÉÑ…‰±”]¥¹‘½İÌàØĞi%@…¹…ÑÑ…¡•ÌÑ¡•´Ñ¼„É•±•…Í”¸½¹ÍÕµ•ÉÌ¹••¹¼±½…°¬¬Ñ½½±¡…¥¸ìÑ¡”±±…µ…‘…ÉÑ€Á…­…”‰Õ¥±¡½½¬™•Ñ¡•ÌÑ¡”¹…Ñ¥Ù”ÉÕ¹Ñ¥µ”‘ÕÉ¥¹œÑ¡”¥Ñ!Õˆ‰Õ¥±¸Q¼‰Õ¥±±½…±±ä°ÕÍ”±ÕÑÑ•È€Ì¸Ìà¸Ø½È¹•İ•È°…ÉĞ€Ì¸ÄÀ¸Ü½È¹•İ•È°…¹)…Ù„€ÄÜ™½È¹‘É½¥¸M•”m…ÁÁÌ½­……µÍ……Ñ¡¤½I5¹µ‘t¡…ÁÁÌ½­……µÍ……Ñ¡¤½I5¹µ¤¸4(4(ŒŒ1¥•¹•Ì4(4)Q¡¥Ì…ÁÀÍ½ÕÉ”ÕÍ•ÌÑ¡”5%P1¥•¹Í”¸±±…µ…‘…ÉÑ€¥Ì5%Pµ±¥•¹Í•¸Eİ•¸Ì¸Ôµ½‘•°İ•¥¡ÑÌ…¹Ñ¡”Í•±•Ñ•U½¹Ù•ÉÍ¥½¹Ì…É”ÁÕ‰±¥Í¡•Õ¹‘•ÈÁ…¡”€È¸Àìµ½‘•°™¥±•Ì…É”‘½İ¹±½…‘•‘¥É•Ñ±ä™É½´mU¹Í±½Ñ Ì€À¸áUt¡¡ÑÑÁÌè¼½¡Õ¥¹™…”¹¼½Õ¹Í±½Ñ ½Eİ•¸Ì¸Ô´À¸áµU¤½ÈlÑUt¡¡ÑÑÁÌè¼½¡Õ¥¹™…”¹¼½Õ¹Í±½Ñ ½Eİ•¸Ì¸Ô´ÑµU¤É•Á½Í¥Ñ½É¥•Ì¸Q¡½Í”ÁÉ½©•ÑÌ¡…Ù”Ñ¡•¥È½İ¸¹½Ñ¥•Ì…¹…ÑÑÉ¥‰ÕÑ¥½¸É•ÅÕ¥É•µ•¹ÑÌ¸4(4(ŒŒ…É±äÉ•±•…Í”¹½Ñ•Ì4(4)Q¡”¥¹¥Ñ¥…°¹‘É½¥A,ÕÍ•ÌÑ¡”•¹•É…Ñ•‘•‰ÕœÍ¥¹¥¹œ­•äì™ÕÑÕÉ”‰Õ¥±‘ÌÍ¥¹•İ¥Ñ „‘¥™™•É•¹Ğ­•äµ…äÉ•ÅÕ¥É”Õ¹¥¹ÍÑ…±±¥¹œÑ¡”½±½Áä™¥ÉÍĞ¸Q¡”]¥¹‘½İÌi%@¥ÌÕ¹Í¥¹•°Í¼Mµ…ÉÑMÉ••¸µ…äÍ¡½Ü„İ…É¹¥¹œ¸Q¡”™¥ÉÍĞÉ•±•…Í”ÍÕÁÁ½ÉÑÌ¹‘É½¥…É´ØĞ…¹]¥¹‘½İÌàØĞ½¹±ä¸M•”Ñ¡”É•±•…Í”¹½Ñ•Ì™½ÈÑ¡”•á…Ğ‰Õ¥±ÍÑ…ÑÕÌ¸4(
+# KaamSaathi
+
+**A private, offline-first work companion for Android and Windows.** Use it to explain, plan, review, and draft from a small local AI model. The first version is designed for creators, students, and small businesses, with simple English and Hindi controls.
+
+**Website:** [kaamsaathi-downloads.onrender.com](https://kaamsaathi-downloads.onrender.com/)
+
+## Download
+
+Open [GitHub Releases](https://github.com/Dipayanhaldar/Kaamsaathi/releases/latest) and download:
+
+- `KaamSaathi-Android-arm64.apk` for most recent 64-bit Android phones.
+- `KaamSaathi-Windows-x64.zip` for 64-bit Windows 10/11 PCs.
+
+On Windows, extract the whole ZIP folder and open `kaamsaathi.exe`. On Android, install the APK from your downloaded file; Android may ask you to allow installation from that source. This is a direct-download beta, not a Microsoft Store package.
+
+## First use and offline mode
+
+The app contains its local inference engine. It does **not** require Python, Ollama, a cloud account, or an AI API. When you first open **Set up free offline AI**, choose a model and download it over the internet. After that finishes, chat and source review run on your device without internet. KaamSaathi reloads the saved model from local storage when you reopen the app. The app does not bundle model weights in the APK or Windows ZIP, so you choose when to use the storage and data for the model download.
+
+- **Qwen3.5 0.8B Q4:** about 533 MB; the lighter choice for phones and everyday tasks.
+- **Qwen3.5 4B Q4:** about 2.74 GB; requires substantially more memory and storage. The app recommends 8 GB RAM or more.
+
+The model is a small local model. It can be slow, miss details, or give wrong answers; it will not match the strongest hosted systems on every task. The 4B option needs more memory. Internet is required for the first model download; the app itself has no cloud AI endpoint.
+
+## What it does
+
+- Chat to explain, plan, review, and draft in plain language.
+- See local AI replies appear as they are generated; stop a long answer and keep its partial text.
+- Run a short on-device check that shows the model's exact output and response time without saving it in chat.
+- Select text files for local project context. Only selected files are read; the app does not scan folders in the background.
+- Check an HTML page for a few common source issues, such as missing title, language, heading, image alt text, or mobile viewport.
+- Save, copy, or share a draft only when you choose to.
+- Use English or Hindi labels, larger text, and an on-device activity list.
+
+## What it does not do
+
+KaamSaathi does not monitor your screen, run in the background, control other apps, browse the live web, change your project files, or complete actions for you. It is an offline work assistant with selected-file context, not an autonomous computer-control agent. Website checks are basic source hints, not a security, accessibility, legal, or SEO audit.
+
+## Privacy and cost
+
+There is no account, cloud backend, telemetry, paid API, or in-app transaction. Chat and activity are stored on the device and can be cleared in the app. Selected files and prompts are processed locally by the model after setup. The one-time model download comes from Hugging Face. You still provide your own device, storage, electricity, and internet data for that download.
+
+Read [Privacy](docs/PRIVACY.md), [Product scope](docs/PRODUCT.md), [Architecture](docs/ARCHITECTURE.md), and [Roadmap](docs/ROADMAP.md).
+
+## Build from source
+
+The GitHub Actions workflow builds the Android arm64 APK and portable Windows x64 ZIP and attaches them to a release. Consumers need no local C++ toolchain; the `llamadart` package build hook fetches the native runtime during the GitHub build. To build locally, use Flutter 3.38.6 or newer, Dart 3.10.7 or newer, and Java 17 for Android. See [`apps/kaamsaathi/README.md`](apps/kaamsaathi/README.md).
+
+## Licences
+
+This app source uses the MIT License. `llamadart` is MIT-licensed. Qwen3.5 model weights and the selected GGUF conversions are published under Apache 2.0; model files are downloaded directly from [Unsloth's 0.8B GGUF](https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF) or [4B GGUF](https://huggingface.co/unsloth/Qwen3.5-4B-GGUF) repositories. Those projects have their own notices and attribution requirements.
+
+## Early release notes
+
+The initial Android APK uses the generated debug signing key; future builds signed with a different key may require uninstalling the old copy first. The Windows ZIP is unsigned, so SmartScreen may show a warning. The first release supports Android arm64 and Windows x64 only. See the release notes for the exact build status.
