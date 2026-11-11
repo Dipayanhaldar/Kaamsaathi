@@ -2,6 +2,8 @@
 
 **A private, offline-first work companion for Android and Windows.** Use it to explain, plan, review, and draft from a small local AI model. The first version is designed for creators, students, and small businesses, with simple English and Hindi controls.
 
+**Website:** [kaamsaathi-downloads.onrender.com](https://kaamsaathi-downloads.onrender.com/)
+
 ## Download
 
 Open [GitHub Releases](https://github.com/Dipayanhaldar/Kaamsaathi/releases/latest) and download:
