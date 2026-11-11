@@ -6,7 +6,7 @@ This Flutter app builds an Android arm64 APK and a portable Windows x64 folder. 
 
 1. Install the APK on a 64-bit Android phone or extract the Windows ZIP and open `kaamsaathi.exe`.
 2. Choose **Set up free offline AI** and download a model while online.
-3. When setup finishes, chat and local website-source checks work offline.
+3. When setup finishes, chat and local website-source checks work offline. The cached model is restored when you reopen the app.
 
 The 0.8B model file is about 533 MB. The 4B Q4 model file is about 2.74 GB and uses more memory. The AI runs on the user's device, so speed and answer quality vary by device; this is not equivalent to a large hosted model.
 
