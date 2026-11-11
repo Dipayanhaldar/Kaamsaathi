@@ -1,21 +1,27 @@
 # Privacy and permissions
 
-## Current prototype
+## What KaamSaathi does locally
 
-The prototype does not call an AI model, access files, read the screen, or communicate with a backend. Project names, plans, interface preferences, and activity entries are saved in the current browser's local storage. Removing site data clears them. Do not enter sensitive information into this demo.
+- Serves its interface from a Python process bound to this computer (`127.0.0.1`).
+- Reads supported text files only after you select a folder.
+- Sends a chat message and the selected file context only to Ollama on this same computer.
+- Stores chat history, language choice, model choice, and activity in the current browser’s local storage.
+- Runs the basic website source audit locally, without an AI model.
+- Saves a draft only after you choose Save. It never overwrites the files it reads.
 
-## Product rules
+## Internet use
 
-- Ask the user to select each project or folder.
-- Explain what will be read before scanning it.
-- Start with read-only access; request write permission only for a specific approved action.
-- Display an active status when the companion is doing work.
-- Provide pause, clear-history, and remove-project controls.
-- Collect no keystrokes, screenshots, or activity outside the user's selected task.
-- Do not upload project content or prompts unless the user explicitly chooses a named cloud feature.
-- Give older users the same simple permission explanation in their selected language.
+The app itself has no analytics or hosted AI endpoint. Internet is needed to get Python/Ollama and to download a model. The in-app model download requires your confirmation and is handled through the local Ollama runtime. After setup, the app’s chat and source review work offline. Ollama is separate software and has its own licence and behaviour.
 
-## Public release checklist
+## Controls and limits
 
-Before any public build, document data stored locally, any external network requests, model licences, Android permissions, crash reporting, data deletion, and the purpose of every connector. Ask a qualified reviewer to check applicable privacy and platform requirements for each release market.
+- Stop the app by closing its command window or pressing Ctrl+C in that window.
+- Use **Clear history** to clear the app’s chat and activity from this browser.
+- Choose only folders you are comfortable giving to a local model. Do not select secrets such as passwords or API keys.
+- The app does not record the screen, keystrokes, or activity in other apps, and it does not run as a hidden background monitor.
+- The local model may produce incorrect answers. Review its output before using it.
+
+## Public-release review
+
+Before distributing an installer or APK, document the exact bundled components and licences, data storage, Android permissions, signing and update process, supported Windows versions, and the model download flow. Have the release checked for security, accessibility, applicable privacy requirements, and store rules.
 

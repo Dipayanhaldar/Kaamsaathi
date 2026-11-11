@@ -1,49 +1,36 @@
-# Product outline
+# KaamSaathi product scope
 
-## Problem
+## Who it is for
 
-Creators, freelancers, older adults, and small-business owners often need help moving from “I want this done” to a finished task. Existing technical tools can be hard to connect, explain, and trust. A capable assistant should work with projects the person chooses, explain its plan clearly, and make it easy to see or reverse what it did.
-
-## Product promise
-
-**Say what you want done. KaamSaathi explains the plan, works only in the project you chose, and shows what happened.**
-
-## First audience
-
-Start with Indian independent creators and freelancers who maintain a website or content project themselves. Older users are a key accessibility audience from day one: simple language, readable text, clear voice-oriented interaction when a suitable local speech option is available, and no hidden activity collection.
+KaamSaathi is a local work companion for Indian creators, freelancers, and small-business owners who want understandable help with their website and content projects. The interface starts in English, includes Hindi labels, and offers a larger-text setting for easier reading.
 
 ## The first complete task loop
 
-1. The user adds a project or selects a local project folder.
-2. The user describes one outcome in Hindi or English.
-3. The agent states its interpretation and offers a short plan.
-4. The user approves specific steps or edits the plan.
-5. The agent drafts a review, checklist, or file change inside a safe workspace.
-6. The user previews and approves any write.
-7. The agent records a plain-language summary and offers restore where possible.
+1. Start KaamSaathi on the Windows PC.
+2. Optionally select a project folder. The app reads a bounded set of supported text files only.
+3. Ask for an explanation, review, plan, or draft in the chat.
+4. Read the response and decide whether to use it.
+5. Select **Save last answer as a draft** to download a Markdown file or, if the browser permits, save it under `KaamSaathi-Drafts` in the selected folder.
 
-## MVP boundaries
+The separate website review screen checks common metadata and markup details with local rules. It works without an AI model.
 
-The first real agent should complete a narrow creator workflow end-to-end: review a selected website project and produce an actionable improvement plan, with draft edits in a separate preview. It should not claim general computer autonomy.
+## What this release is and is not
 
-The current `index.html` prototype demonstrates only the interface and local task list. Plan generation is intentionally labeled as demo logic; it is not model-backed.
+This is a functional personal Windows workbench with a local Python server and a browser interface. Open-ended chat uses an Ollama model already installed on the same PC. A model can help with project explanations, plans, content, and suggestions. Results are drafts for the user to review.
 
-## Device roles
+This version does not control the whole computer, click through other apps, monitor activity, run in the background invisibly, edit arbitrary files, or act on an Android phone. It is not a trained/fine-tuned KaamSaathi model: it uses a prompt to guide an existing local model. Small local models can make mistakes and need human review.
 
-- **Windows companion:** local model and project-folder worker, with a visible tray/status control and a safe file workspace.
-- **Android companion:** task entry, status, project sharing, notifications, and approvals. Device-wide hidden monitoring is out of scope. Android capabilities are limited to documented, user-permitted integrations.
-- **Project connector:** an optional, free SDK or plugin for projects we own, passing only selected page/task context and returning feedback to an in-project panel.
+## Design principles
 
-## Free-by-design approach
+- Keep the first workflow narrow and useful.
+- Explain in simple language and make the main actions visible.
+- Ask the user to select project files; never scan the whole device.
+- Keep actions read-only by default and require a clear save action for drafts.
+- Make offline behaviour and one-time online setup explicit.
+- Keep English/Hindi and larger text in the first release.
+- Add broader automation only as a separate, visible, permissioned feature.
 
-Prototype and personal use: static site, local storage, and local inference on the user's device. Do not promise an always-on hosted agent at zero cost. Keep model selection optional and hardware-aware. For public use, each user can download and run the local model; any hosted shared intelligence or storage needs clear limits and funding.
+## Later product direction
 
-## Success measures for the first release
-
-- A new user can create a project and request a plan without help.
-- The user can identify when tracking is active and pause it.
-- Every proposed action is described before approval.
-- A user can find what changed and restore a prior version.
-- English/Hindi and large-text controls are usable with keyboard, touch, and screen readers.
-- The first chosen creator workflow is useful without requiring a paid API.
+Possible next steps are a packaged Windows desktop app, reviewed voice support, safe preview/undo for explicitly approved file edits, a user-paired Android companion, and a documented connector for websites that the user owns. Each requires its own privacy and permission design. A shared hosted AI service would have ongoing costs and is outside the free local-first promise.
 

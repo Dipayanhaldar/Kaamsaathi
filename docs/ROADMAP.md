@@ -1,44 +1,30 @@
 # Roadmap
 
-## Stage 0 — Product demo (this repository)
+## Personal Windows release in this repository
 
-- Static, installable interface prototype.
-- Local demo projects and task history.
-- English/Hindi labels and large text option.
-- Privacy and demo-mode disclosure.
+- [x] English/Hindi interface labels and larger-text setting.
+- [x] Local project folder selection with bounded text-file reading.
+- [x] Basic deterministic website source review that runs without AI.
+- [x] Local Ollama model discovery and user-started download of two recommended models.
+- [x] Local chat for explanations, reviews, plans, and drafts.
+- [x] Save drafts only after a user action; local activity and clear-history control.
+- [x] Windows double-click launcher and offline app-shell cache.
+- [ ] Package as a signed Windows installer and prepare Microsoft Store submission.
+- [ ] Test on supported Windows PCs and review Hindi translations/accessibility with users.
 
-## Stage 1 — Personal Windows MVP
+## Later work
 
-- A beginner-friendly installer and first-run setup.
-- Local model selection based on available hardware.
-- User-selected project folder with read-only start.
-- One creator workflow: review a website project and make a proposed improvement plan.
-- Visible activity state, pause control, previews, backups, and restore.
+1. Improve first-run setup and provide model sizing guidance based on the user’s PC.
+2. Add safe draft previews and restore for explicitly approved file edits.
+3. Add speech only after selecting and testing an offline speech engine.
+4. Build a user-paired Android companion; keep device-wide monitoring out of scope.
+5. Publish a documented connector for websites/projects the user owns.
+6. Consider Azure/AWS only for opt-in features that truly need shared remote state, with budgets and a shutdown path.
 
-## Stage 2 — Safe project edits
+## Distribution decisions
 
-- Draft file changes in a separate preview or branch.
-- Explain changed files in plain language.
-- Add reviewed Hindi support and keyboard/screen-reader improvements.
-- Add creator workflow feedback inside one connected website project.
-
-## Stage 3 — Android companion and public downloads
-
-- Android task entry, activity summaries, notifications, and approvals.
-- No hidden tracking or general-purpose autonomous control of other Android apps.
-- Build and sign APK; publish to GitHub Releases and the project website.
-- Prepare separate Windows package for Microsoft Store review.
-
-## Stage 4 — Optional integrations and cloud
-
-- Publish a documented connector for projects we own.
-- Consider optional Azure/AWS components only for features that need shared state or remote access.
-- Recheck hosting cost, platform rules, privacy disclosures, and model licences before release.
-
-## Release-channel decisions
-
-- No Google Play submission in the current plan.
-- GitHub Releases and project website are the first Android distribution routes.
-- Uptodown may be considered for an additional free listing.
-- PhonePe Appstore should be reconsidered near release because its current documentation says the first year is free and an annual fee applies afterward.
+- Google Play is not planned.
+- The current repository is the source code, not a released installer or APK.
+- Microsoft Store and direct APK distribution require separate packaging, signing, device testing, privacy review, and release assets.
+- GitHub Releases/site downloads can be considered for the Android build after that work is complete. Uptodown or PhonePe can be reconsidered at release time.
 

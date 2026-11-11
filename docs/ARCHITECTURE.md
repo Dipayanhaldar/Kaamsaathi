@@ -1,40 +1,32 @@
-# Architecture direction
+# Architecture
 
-## Prototype in this repository
-
-`index.html`, `styles.css`, and `app.js` form a static, dependency-free prototype. Browser local storage holds demo projects, activity, language choice, and plans. The service worker caches static assets for a basic offline revisit when served over HTTPS or localhost. There is no model, server, telemetry, or device-control layer in this prototype.
-
-## Intended local-first product
+## Running product
 
 ```text
-Windows companion ── local model runtime ── selected project workspace
-        │                         │
-        └── visible task history ─┘
-                    │ optional, user-approved connector
-                    ▼
-            project feedback panel
+Browser UI (served by this PC)
+   ├── local Python standard-library server on 127.0.0.1
+   │      ├── deterministic website source audit
+   │      └── local Ollama runtime on 127.0.0.1:11434
+   └── browser local storage for chat history and activity
 
-Android companion: task entry, notification, status, and approval
-Static website: explanation, downloads, privacy details, and updates
+Selected project folder ── text files read by the browser ── local chat request
 ```
 
-The user's PC should perform the first agent work. This avoids making a free cloud server host every model request. The Android app can initially talk to the Windows companion on the same network only when the user deliberately pairs them; a remote always-on connection would require a hosted relay and would introduce an operating cost and a security surface.
+`Start-KaamSaathi.bat` starts the local server. The server chooses an available port in the 8765–8789 range and opens the browser. It binds only to loopback, adds browser security headers, rejects requests from other hosts/origins, and does not log request bodies or prompts.
 
-## Integration rule
+The browser sends local chat requests to this app server. The app server forwards them only to an installed local Ollama model. There is no remote AI endpoint, authentication key, database, or cloud backend. A model download is started only after the user presses a download button and confirms; that one-time transfer goes through Ollama to its model registry.
 
-“No paid external AI API” is compatible with local inference. Project-to-agent communication still needs a defined connector: for example, a free JavaScript package or a local companion bridge. Each integration must request only the data it needs and show the user what context will be shared.
+## Offline behaviour
 
-## Trust boundaries
+After Python, Ollama, and a model are installed/downloaded, the core website review and model chat can run without internet access. The service worker caches the static interface, but the local server must still be running for the app to work. The model is not included in GitHub because it is several gigabytes and has separate terms.
 
-- Treat project files and page content as untrusted input.
-- Keep model inference local by default.
-- Give the agent access only to user-selected workspaces.
-- Use a staged plan: read → propose → preview → approve → write.
-- Keep browser and operating-system automation visible and user-started.
-- Never store raw credentials or model secrets in the project database.
-- Record action summaries locally; let the user pause, clear, export, or remove project access.
+## File access and writes
 
-## Later cloud option
+The browser asks the user to select one folder. It reads supported text files only, up to 30 files and 220,000 characters in total, and skips common dependency/build folders. The selected paths and contents are sent to the local model only when the user sends a chat message. The server validates file types and size again.
 
-Azure or AWS may later support opt-in backups, shared team workspaces, or relays. They should be disabled in the personal no-cost edition by default. Cloud resources must have quotas, budget alerts, and a shutdown path before public use.
+Saving an answer is a separate user action. The browser asks for write permission at save time if it is able to write into the selected folder; otherwise it downloads the draft. No source file is overwritten.
+
+## Later integrations
+
+Android, a Windows installer, a store package, remote access, and website plug-ins are not part of this build. A future integration should send only the selected task context and make any changes or network transfer visible to the user. A cloud service should remain off by default and cannot be promised free at scale.
 
